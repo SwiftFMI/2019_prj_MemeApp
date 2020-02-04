@@ -18,11 +18,12 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var logControll: UISegmentedControl!
     @IBOutlet weak var errorLabel: UILabel!
     
+    private let gradient = CAGradientLayer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        username.isHidden = true
-        // Do any additional setup after loading the view.
         
+        setupBackground()
     }
     
     @IBAction func logControllChanged(_ sender: Any) {
@@ -66,5 +67,14 @@ class LoginViewController: UIViewController {
         username.text = ""
         errorLabel.text = ""
         errorLabel.isHidden = true
+    }
+    
+    private func setupBackground() {
+        gradient.frame.size = view.frame.size
+        gradient.startPoint = CGPoint(x: 1, y:1)
+        gradient.endPoint = CGPoint(x: 0, y: 0)
+        gradient.colors = [ #colorLiteral(red: 0.1426291466, green: 0.1426603794, blue: 0.1426250339, alpha: 1).cgColor , #colorLiteral(red: 0.235488981, green: 0.234095484, blue: 0.2365642488, alpha: 1).cgColor, #colorLiteral(red: 0.3131442964, green: 0.3145992458, blue: 0.3181353211, alpha: 1).cgColor]
+          view.layer.insertSublayer(gradient, at: 0)
+        
     }
 }
