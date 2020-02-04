@@ -22,8 +22,30 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupBackground()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+//        emailAdress.center.x -= view.bounds.width
+//        screenTitleLabel.center.x -= view.bounds.width
+//        password.center.x -= view.bounds.width
+//        username.center.x -= view.bounds.width
+//        logControll.center.x -= view.bounds.width
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+//        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [.curveEaseInOut], animations: {
+//            self.emailAdress.center.x += self.view.bounds.width
+//            self.screenTitleLabel.center.x += self.view.bounds.width
+//            self.password.center.x += self.view.bounds.width
+//            self.username.center.x += self.view.bounds.width
+//            self.logControll.center.x += self.view.bounds.width
+//        }, completion: nil)
+        
     }
     
     @IBAction func logControllChanged(_ sender: Any) {
@@ -74,7 +96,7 @@ class LoginViewController: UIViewController {
         gradient.startPoint = CGPoint(x: 1, y:1)
         gradient.endPoint = CGPoint(x: 0, y: 0)
         gradient.colors = [ #colorLiteral(red: 0.1426291466, green: 0.1426603794, blue: 0.1426250339, alpha: 1).cgColor , #colorLiteral(red: 0.235488981, green: 0.234095484, blue: 0.2365642488, alpha: 1).cgColor, #colorLiteral(red: 0.3131442964, green: 0.3145992458, blue: 0.3181353211, alpha: 1).cgColor]
-          view.layer.insertSublayer(gradient, at: 0)
+        view.layer.insertSublayer(gradient, at: 0)
         
     }
 }
