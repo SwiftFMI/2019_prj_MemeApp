@@ -64,5 +64,7 @@ class LoginViewController: UIViewController {
         emailAdress.text = ""
         password.text = ""
         username.text = ""
+        errorLabel.text = ""
+        errorLabel.isHidden = true
     }
 }

@@ -6,6 +6,7 @@ target 'MemeGenerator' do
   use_frameworks!
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
+  pod 'Firebase/Database'
 
   # Pods for MemeGenerator
 

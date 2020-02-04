@@ -8,10 +8,13 @@
 
 import Foundation
 import FirebaseAuth
+import FirebaseDatabase
 
 class FirebaseAuthManager: NSObject {
     
     static let shared = FirebaseAuthManager()
+    
+    let databaseRef = Database.database().reference()
     var currentUser: User?
     
     func login(email: String?, password: String? , completion: @escaping (_ success: Bool, _ error: Error?) -> () ){
@@ -28,10 +31,8 @@ class FirebaseAuthManager: NSObject {
                 completion(false, AuthError.noUser)
                 return
             }
-            
             UserDefaults.standard.set(true, forKey: "isLoged")
             UserDefaults.standard.synchronize()
-            
             completion(true, nil)
         }
     }
@@ -47,17 +48,22 @@ class FirebaseAuthManager: NSObject {
                 completion(false, AuthError.missingInfo)
                 return
             }
-            
-            self.currentUser = User(username: username, uid: user.user.providerID)
+
+            self.currentUser = User(username: username, uid: user.user.uid)
+            self.addUsertoDatabase(self.currentUser!)
             self.login(email: email, password: password) { (success, error) in
                 completion(success,error)
             }
-            
         }
-        
     }
     
-    
+    func addUsertoDatabase(_ user: User) {
+        let post = ["uid": user.uid,
+                    "username":user.username,
+        ]
+        databaseRef.child("users").child(user.uid).setValue(post)
+    }
+
 }
 
 enum AuthError: Error {
