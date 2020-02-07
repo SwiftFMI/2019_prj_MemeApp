@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RKe-bN-2HQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="acT-83-s61">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
@@ -21,7 +21,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1909" y="-160"/>
+            <point key="canvasLocation" x="2818.840579710145" y="-160.04464285714286"/>
         </scene>
         <!--Profile-->
         <scene sceneID="eND-JR-Fob">
@@ -37,9 +37,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bnT-yv-FiI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1909" y="514"/>
+            <point key="canvasLocation" x="2818.840579710145" y="513.61607142857144"/>
         </scene>
-        <!--Templates-->
+        <!--Login View Controller-->
         <scene sceneID="z80-Eb-mQ1">
             <objects>
                 <viewController storyboardIdentifier="LoginViewController" id="RKe-bN-2HQ" customClass="LoginViewController" customModule="MemeGenerator" customModuleProvider="target" sceneMemberID="viewController">
@@ -81,7 +81,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V13-Jk-JdJ">
-                                <rect key="frame" x="20" y="64" width="374" height="25.5"/>
+                                <rect key="frame" x="20" y="108" width="374" height="25.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <nil key="textColor"/>
@@ -124,7 +124,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="r7i-vg-3uF"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Templates" id="ru1-mq-gsq"/>
+                    <navigationItem key="navigationItem" id="64H-Lq-CZ4"/>
                     <connections>
                         <outlet property="emailAdress" destination="oJE-Nc-4NG" id="gDK-ik-dj5"/>
                         <outlet property="errorLabel" destination="uie-x2-yVT" id="JcD-bj-bkT"/>
@@ -137,12 +137,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x7p-ad-E94" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-210.1449275362319" y="29.464285714285712"/>
+            <point key="canvasLocation" x="645" y="-154"/>
         </scene>
         <!--Main Tab Controller-->
         <scene sceneID="BN6-Oo-7Bl">
             <objects>
                 <tabBarController storyboardIdentifier="MainTabController" id="uyd-KG-R5t" customClass="MainTabController" customModule="MemeGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="916-jh-SaX"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zek-1S-k3q">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -155,7 +156,26 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MSy-VD-2tE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="749" y="29"/>
+            <point key="canvasLocation" x="1657.9710144927537" y="28.794642857142854"/>
+        </scene>
+        <!--Templates-->
+        <scene sceneID="oSy-XH-eRt">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="acT-83-s61" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Templates" id="ru1-mq-gsq"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AmE-WN-bAI">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="RKe-bN-2HQ" kind="relationship" relationship="rootViewController" id="1jn-hd-ycM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5nP-tL-VTs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-210.1449275362319" y="29.464285714285712"/>
         </scene>
     </scenes>
     <resources>

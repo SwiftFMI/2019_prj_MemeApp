@@ -24,6 +24,8 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        
         setupBackground()
         emailAdress.center.x -= view.frame.width
         password.center.x -= view.frame.width
@@ -99,8 +101,9 @@ class LoginViewController: UIViewController {
         if logControll.selectedSegmentIndex == 0 {
             FirebaseAuthManager.shared.login(email: emailAdress.text, password: password.text, completion: {success,error in
                 if success {
-                    let VC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabController") as! MainTabController
-                    self.present(VC, animated: true, completion: nil)
+                    self.presentMainTabBarController(completion: {
+                        self.navigationController?.viewControllers.removeFirst()
+                    })
                 } else {
                     self.errorLabel.text = error?.localizedDescription
                     self.errorLabel.isHidden = false
@@ -117,6 +120,13 @@ class LoginViewController: UIViewController {
                 
             })
         }
+    }
+    
+    func presentMainTabBarController(completion: @escaping () -> () ) {
+        let VC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabController") as! MainTabController
+        self.navigationController?.pushViewController(VC, animated: true)
+        completion()
+        
     }
     
     private func clearTextField() {

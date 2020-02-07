@@ -13,6 +13,6 @@ class MainTabController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UserDefaults.standard.set(false, forKey: "isLoggedIn")
+        navigationItem.hidesBackButton = true
     }
 }
