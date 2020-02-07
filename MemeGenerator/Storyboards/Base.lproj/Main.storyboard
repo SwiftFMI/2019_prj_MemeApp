@@ -18,23 +18,42 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lg9-3L-MZI">
                                 <rect key="frame" x="20" y="94" width="374" height="709"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="KIS-mD-gTY">
-                                    <size key="itemSize" width="50" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="KIS-mD-gTY">
+                                    <size key="itemSize" width="136" height="182"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="oXO-pz-GcC">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="TemplateCollectionViewCell" reuseIdentifier="TemplateCollectionViewCell" id="oXO-pz-GcC" customClass="TemplatesCollectionViewCell" customModule="MemeGenerator" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="136" height="182"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="veu-hy-Wpe">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="136" height="182"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vLB-k7-9XR">
+                                                    <rect key="frame" x="0.0" y="0.0" width="136" height="182"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="vLB-k7-9XR" secondAttribute="bottom" id="14E-vo-xTN"/>
+                                                <constraint firstItem="vLB-k7-9XR" firstAttribute="top" secondItem="veu-hy-Wpe" secondAttribute="top" id="3u9-Vi-xXm"/>
+                                                <constraint firstAttribute="trailing" secondItem="vLB-k7-9XR" secondAttribute="trailing" id="LQU-Zr-k8N"/>
+                                                <constraint firstItem="vLB-k7-9XR" firstAttribute="leading" secondItem="veu-hy-Wpe" secondAttribute="leading" id="Z3J-Wf-sYe"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
+                                        <size key="customSize" width="136" height="182"/>
+                                        <connections>
+                                            <outlet property="image" destination="vLB-k7-9XR" id="WVn-TO-MzN"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="TZk-hv-PUa"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="8v1-Xi-4pT"/>
+                                </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oKU-Su-Z8u">
                                 <rect key="frame" x="334" y="44" width="60" height="40"/>
@@ -48,6 +67,9 @@
                                 <state key="normal" title="+">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="addButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wL3-ca-yrM"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -62,6 +84,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Templates" selectedImage="folder" catalog="system" id="oNc-qU-ejg"/>
+                    <connections>
+                        <outlet property="addButton" destination="oKU-Su-Z8u" id="BCP-iF-X4h"/>
+                        <outlet property="collectionView" destination="lg9-3L-MZI" id="g6Z-Ul-McU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

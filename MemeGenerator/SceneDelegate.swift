@@ -18,13 +18,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         if UserDefaults.standard.bool(forKey: "isLoggedIn") {
-            window = UIWindow(windowScene: scene)
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let initialViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
-            self.window?.rootViewController = initialViewController
-            self.window?.makeKeyAndVisible()
-        }
-        
+                self.window = UIWindow(windowScene: scene)
+                           let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                           let initialViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
+                           self.window?.rootViewController = initialViewController
+                           self.window?.makeKeyAndVisible()
+            }
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

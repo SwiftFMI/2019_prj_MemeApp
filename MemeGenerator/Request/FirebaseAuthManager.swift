@@ -10,7 +10,7 @@ import Foundation
 import FirebaseAuth
 import FirebaseDatabase
 
-class FirebaseAuthManager: NSObject {
+final class FirebaseAuthManager: NSObject {
     
     static let shared = FirebaseAuthManager()
     

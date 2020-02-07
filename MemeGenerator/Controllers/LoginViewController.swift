@@ -67,7 +67,7 @@ class LoginViewController: UIViewController {
             username.isHidden = true
             clearTextField()
             screenTitleLabel.text = "Login"
-
+            
             
             password.alpha = 0
             emailAdress.alpha = 0
@@ -124,8 +124,10 @@ class LoginViewController: UIViewController {
     
     func presentMainTabBarController(completion: @escaping () -> () ) {
         let VC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabController") as! MainTabController
-        self.navigationController?.pushViewController(VC, animated: true)
-        completion()
+        StorageManager.shared.getTemplates(completion: {
+            self.navigationController?.pushViewController(VC, animated: true)
+            completion()
+        })
         
     }
     
