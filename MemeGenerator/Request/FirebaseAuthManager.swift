@@ -31,7 +31,7 @@ class FirebaseAuthManager: NSObject {
                 completion(false, AuthError.noUser)
                 return
             }
-            UserDefaults.standard.set(true, forKey: "isLoged")
+            UserDefaults.standard.set(true, forKey: "isLoggedIn")
             UserDefaults.standard.synchronize()
             completion(true, nil)
         }
