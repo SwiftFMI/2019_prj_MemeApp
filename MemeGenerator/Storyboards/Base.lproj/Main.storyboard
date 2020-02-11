@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lg9-3L-MZI">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lg9-3L-MZI">
                                 <rect key="frame" x="20" y="94" width="374" height="709"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="KIS-mD-gTY">
@@ -34,14 +34,15 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vLB-k7-9XR">
-                                                    <rect key="frame" x="0.0" y="0.0" width="136" height="182"/>
+                                                    <rect key="frame" x="1" y="1" width="134" height="180"/>
                                                 </imageView>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="vLB-k7-9XR" secondAttribute="bottom" id="14E-vo-xTN"/>
-                                                <constraint firstItem="vLB-k7-9XR" firstAttribute="top" secondItem="veu-hy-Wpe" secondAttribute="top" id="3u9-Vi-xXm"/>
-                                                <constraint firstAttribute="trailing" secondItem="vLB-k7-9XR" secondAttribute="trailing" id="LQU-Zr-k8N"/>
-                                                <constraint firstItem="vLB-k7-9XR" firstAttribute="leading" secondItem="veu-hy-Wpe" secondAttribute="leading" id="Z3J-Wf-sYe"/>
+                                                <constraint firstAttribute="bottom" secondItem="vLB-k7-9XR" secondAttribute="bottom" constant="1" id="14E-vo-xTN"/>
+                                                <constraint firstItem="vLB-k7-9XR" firstAttribute="top" secondItem="veu-hy-Wpe" secondAttribute="top" constant="1" id="3u9-Vi-xXm"/>
+                                                <constraint firstAttribute="trailing" secondItem="vLB-k7-9XR" secondAttribute="trailing" constant="1" id="LQU-Zr-k8N"/>
+                                                <constraint firstItem="vLB-k7-9XR" firstAttribute="leading" secondItem="veu-hy-Wpe" secondAttribute="leading" constant="1" id="Z3J-Wf-sYe"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="136" height="182"/>

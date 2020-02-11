@@ -12,4 +12,6 @@ class TemplatesCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var image: UIImageView!
     
+    
+    
 }

@@ -32,6 +32,7 @@ final class FirebaseAuthManager: NSObject {
                 return
             }
             UserDefaults.standard.set(true, forKey: "isLoggedIn")
+            UserDefaults.standard.set(user?.user.uid, forKey: "UID")
             UserDefaults.standard.synchronize()
             completion(true, nil)
         }
@@ -62,6 +63,17 @@ final class FirebaseAuthManager: NSObject {
                     "username":user.username,
         ]
         databaseRef.child("users").child(user.uid).setValue(post)
+    }
+    
+    func setUserInfo(uid: String) {
+        databaseRef.child("users").child("\(uid)").observeSingleEvent(of: .value, with: {
+            snapshot in
+        
+            let value = snapshot.value as? NSDictionary
+            let username = value?["username"] as? String ?? ""
+            self.currentUser = User(username: username, uid: uid)
+        })
+        
     }
 
 }
