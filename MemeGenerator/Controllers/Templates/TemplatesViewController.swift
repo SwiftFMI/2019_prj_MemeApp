@@ -15,6 +15,8 @@ class TemplatesViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var addButton: UIButton!
     
+    var isSearching = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addButton.layer.cornerRadius = 10
@@ -34,13 +36,21 @@ class TemplatesViewController: UIViewController {
 extension TemplatesViewController: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if isSearching {
+            return StorageManager.shared.searchedImages.count
+        }
         return StorageManager.shared.images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TemplateCollectionViewCell", for: indexPath) as! TemplatesCollectionViewCell
         cell.image.kf.indicatorType = .activity
-        let url = URL(string: StorageManager.shared.images[indexPath.row] )
+        var url: URL?
+        if isSearching {
+            url = URL(string: StorageManager.shared.searchedImages[indexPath.row] )
+        } else {
+            url = URL(string: StorageManager.shared.images[indexPath.row] )
+        }
         cell.image.kf.setImage(with: url)
         
         cell.backgroundView = UIView(frame: cell.contentView.frame)
@@ -99,11 +109,11 @@ extension TemplatesViewController : UIImagePickerControllerDelegate, UINavigatio
         }
         
         StorageManager.shared.uploadImage( url: imageURL.absoluteURL, complition: { success in
-            if success {
+            if success, !self.isSearching {
                 let indexPath = IndexPath(row: StorageManager.shared.images.count - 1, section: 0 )
                 self.collectionView.insertItems(at: [indexPath])
-                picker.dismiss(animated: true)
             }
+             picker.dismiss(animated: true)
         })
     }
 }
@@ -112,18 +122,28 @@ extension TemplatesViewController : UIImagePickerControllerDelegate, UINavigatio
 extension TemplatesViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        
+        isSearching = false
+        searchBar.endEditing(true)
+        searchBar.showsCancelButton = false
+        searchBar.text = nil
+        collectionView.reloadData()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.showsCancelButton = false
         
+        guard let searchWord = searchBar.text else {
+            return
+        }
+        if !searchWord.isEmpty {
+            isSearching = true
+            StorageManager.shared.searchTemplates(searchWord)
+            collectionView.reloadData()
+        }
     }
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
     }
 }

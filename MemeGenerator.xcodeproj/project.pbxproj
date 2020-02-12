@@ -64,6 +64,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		95AAB9ED23F431AE00AD0A8F /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				95DEB8F923E9970F009E7DAF /* TemplatesViewController.swift */,
+				950E6D4923EDB9E700A1676D /* TemplatesCollectionViewCell.swift */,
+			);
+			path = Templates;
+			sourceTree = "<group>";
+		};
 		95DEB8E923E9970F009E7DAF = {
 			isa = PBXGroup;
 			children = (
@@ -110,8 +119,7 @@
 		95DEB92E23E9AAD5009E7DAF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				95DEB8F923E9970F009E7DAF /* TemplatesViewController.swift */,
-				950E6D4923EDB9E700A1676D /* TemplatesCollectionViewCell.swift */,
+				95AAB9ED23F431AE00AD0A8F /* Templates */,
 				95DEB92B23E9AA87009E7DAF /* LoginViewController.swift */,
 				950E6D4523ED937E00A1676D /* MainTabBarController.swift */,
 			);

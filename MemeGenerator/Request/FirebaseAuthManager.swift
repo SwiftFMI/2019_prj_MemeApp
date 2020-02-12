@@ -65,13 +65,14 @@ final class FirebaseAuthManager: NSObject {
         databaseRef.child("users").child(user.uid).setValue(post)
     }
     
-    func setUserInfo(uid: String) {
+    func setUserInfo(uid: String, completion: @escaping () -> ()) {
         databaseRef.child("users").child("\(uid)").observeSingleEvent(of: .value, with: {
             snapshot in
         
             let value = snapshot.value as? NSDictionary
             let username = value?["username"] as? String ?? ""
             self.currentUser = User(username: username, uid: uid)
+            completion()
         })
         
     }

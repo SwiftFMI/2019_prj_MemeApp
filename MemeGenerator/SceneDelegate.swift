@@ -18,13 +18,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let scene = (scene as? UIWindowScene) else { return }
         
+        self.window = UIWindow(windowScene: scene)
+        let storyboard = UIStoryboard(name: "LaunchScreen", bundle: nil)
+        let initialViewController = storyboard.instantiateViewController(withIdentifier: "LaunchScreen")
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
+        
         if UserDefaults.standard.bool(forKey: "isLoggedIn") {
-              FirebaseAuthManager.shared.setUserInfo(uid: UserDefaults.standard.string(forKey: "UID") ?? "")
+              FirebaseAuthManager.shared.setUserInfo(uid:
+              UserDefaults.standard.string(forKey: "UID") ?? "") {
                 self.window = UIWindow(windowScene: scene)
-                           let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                           let initialViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
-                           self.window?.rootViewController = initialViewController
-                           self.window?.makeKeyAndVisible()
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let initialViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
+                self.window?.rootViewController = initialViewController
+                self.window?.makeKeyAndVisible()
+            }
           
             }
         

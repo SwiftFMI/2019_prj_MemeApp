@@ -17,8 +17,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lg9-3L-MZI">
-                                <rect key="frame" x="20" y="94" width="374" height="709"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="20" y="140" width="374" height="563"/>
+                                <color key="backgroundColor" red="0.60482077815497082" green="0.50404394479404224" blue="0.9195748730964467" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="KIS-mD-gTY">
                                     <size key="itemSize" width="136" height="182"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -39,10 +39,10 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="vLB-k7-9XR" secondAttribute="bottom" constant="1" id="14E-vo-xTN"/>
-                                                <constraint firstItem="vLB-k7-9XR" firstAttribute="top" secondItem="veu-hy-Wpe" secondAttribute="top" constant="1" id="3u9-Vi-xXm"/>
-                                                <constraint firstAttribute="trailing" secondItem="vLB-k7-9XR" secondAttribute="trailing" constant="1" id="LQU-Zr-k8N"/>
-                                                <constraint firstItem="vLB-k7-9XR" firstAttribute="leading" secondItem="veu-hy-Wpe" secondAttribute="leading" constant="1" id="Z3J-Wf-sYe"/>
+                                                <constraint firstAttribute="trailing" secondItem="vLB-k7-9XR" secondAttribute="trailing" constant="1" id="9dK-cz-H37"/>
+                                                <constraint firstAttribute="bottom" secondItem="vLB-k7-9XR" secondAttribute="bottom" constant="1" id="iZZ-Nt-Zmo"/>
+                                                <constraint firstItem="vLB-k7-9XR" firstAttribute="top" secondItem="veu-hy-Wpe" secondAttribute="top" constant="1" id="rgr-ei-sS7"/>
+                                                <constraint firstItem="vLB-k7-9XR" firstAttribute="leading" secondItem="veu-hy-Wpe" secondAttribute="leading" constant="1" id="wYy-ZH-2aA"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="136" height="182"/>
@@ -57,11 +57,11 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oKU-Su-Z8u">
-                                <rect key="frame" x="334" y="44" width="60" height="40"/>
+                                <rect key="frame" x="177" y="743" width="60" height="40"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Swn-Dv-3vq"/>
-                                    <constraint firstAttribute="width" constant="60" id="UN1-hI-vgc"/>
+                                    <constraint firstAttribute="width" constant="60" id="nqK-gL-9r0"/>
+                                    <constraint firstAttribute="height" constant="40" id="sj5-Gz-pff"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -72,19 +72,32 @@
                                     <action selector="addButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wL3-ca-yrM"/>
                                 </connections>
                             </button>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="search all templates..." translatesAutoresizingMaskIntoConstraints="NO" id="2Hd-0y-F1T">
+                                <rect key="frame" x="10" y="64" width="394" height="56"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="0nM-xR-42O"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.71528790065330616" green="0.67204092058851406" blue="0.94333755970001221" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="lg9-3L-MZI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="2RX-Oc-JMY"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="lg9-3L-MZI" secondAttribute="bottom" constant="10" id="4oM-Oi-BG1"/>
-                            <constraint firstItem="lg9-3L-MZI" firstAttribute="top" secondItem="oKU-Su-Z8u" secondAttribute="bottom" constant="10" id="FPI-Bf-ZDC"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oKU-Su-Z8u" secondAttribute="trailing" constant="20" id="HRP-Rr-xYa"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lg9-3L-MZI" secondAttribute="trailing" constant="20" id="L07-1d-ehU"/>
-                            <constraint firstItem="oKU-Su-Z8u" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Sdg-Xs-b8s"/>
+                            <constraint firstAttribute="trailing" secondItem="2Hd-0y-F1T" secondAttribute="trailing" constant="10" id="0qE-L1-NSy"/>
+                            <constraint firstItem="oKU-Su-Z8u" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4Yg-am-dAi"/>
+                            <constraint firstItem="oKU-Su-Z8u" firstAttribute="top" secondItem="lg9-3L-MZI" secondAttribute="bottom" constant="40" id="8Oc-I6-N9q"/>
+                            <constraint firstItem="2Hd-0y-F1T" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="CPB-tZ-tPp"/>
+                            <constraint firstItem="lg9-3L-MZI" firstAttribute="top" secondItem="2Hd-0y-F1T" secondAttribute="bottom" constant="20" id="UQx-mf-Coj"/>
+                            <constraint firstItem="lg9-3L-MZI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="aqL-F9-U0f"/>
+                            <constraint firstItem="2Hd-0y-F1T" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="kul-Dv-lZI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lg9-3L-MZI" secondAttribute="trailing" constant="20" id="vdX-As-EPY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="oKU-Su-Z8u" secondAttribute="bottom" constant="30" id="wK4-gd-cMh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Templates" selectedImage="folder" catalog="system" id="oNc-qU-ejg"/>
+                    <tabBarItem key="tabBarItem" title="Templates" image="folder" catalog="system" id="oNc-qU-ejg">
+                        <color key="badgeColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="addButton" destination="oKU-Su-Z8u" id="BCP-iF-X4h"/>
                         <outlet property="collectionView" destination="lg9-3L-MZI" id="g6Z-Ul-McU"/>
