@@ -10,6 +10,7 @@
 		950E6D4623ED937E00A1676D /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950E6D4523ED937E00A1676D /* MainTabBarController.swift */; };
 		950E6D4823EDA9F700A1676D /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950E6D4723EDA9F700A1676D /* StorageManager.swift */; };
 		950E6D4A23EDB9E700A1676D /* TemplatesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950E6D4923EDB9E700A1676D /* TemplatesCollectionViewCell.swift */; };
+		95AAB9EF23F4417000AD0A8F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AAB9EE23F4417000AD0A8F /* ProfileViewController.swift */; };
 		95DEB8F623E9970F009E7DAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEB8F523E9970F009E7DAF /* AppDelegate.swift */; };
 		95DEB8F823E9970F009E7DAF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEB8F723E9970F009E7DAF /* SceneDelegate.swift */; };
 		95DEB8FA23E9970F009E7DAF /* TemplatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEB8F923E9970F009E7DAF /* TemplatesViewController.swift */; };
@@ -28,6 +29,7 @@
 		950E6D4523ED937E00A1676D /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		950E6D4723EDA9F700A1676D /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		950E6D4923EDB9E700A1676D /* TemplatesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesCollectionViewCell.swift; sourceTree = "<group>"; };
+		95AAB9EE23F4417000AD0A8F /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		95DEB8F223E9970F009E7DAF /* MemeGenerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeGenerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95DEB8F523E9970F009E7DAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95DEB8F723E9970F009E7DAF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				95AAB9ED23F431AE00AD0A8F /* Templates */,
 				95DEB92B23E9AA87009E7DAF /* LoginViewController.swift */,
 				950E6D4523ED937E00A1676D /* MainTabBarController.swift */,
+				95AAB9EE23F4417000AD0A8F /* ProfileViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			files = (
 				950E6D4823EDA9F700A1676D /* StorageManager.swift in Sources */,
 				95DEB92C23E9AA87009E7DAF /* LoginViewController.swift in Sources */,
+				95AAB9EF23F4417000AD0A8F /* ProfileViewController.swift in Sources */,
 				95DEB93423E9B52B009E7DAF /* FirebaseAuthManager.swift in Sources */,
 				95DEB8FA23E9970F009E7DAF /* TemplatesViewController.swift in Sources */,
 				950E6D4A23EDB9E700A1676D /* TemplatesCollectionViewCell.swift in Sources */,

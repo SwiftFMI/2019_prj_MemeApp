@@ -49,11 +49,11 @@ final class StorageManager: NSObject {
     
     func getUsersTemplates(completion: @escaping () -> () ) {
         
-        guard let user = FirebaseAuthManager.shared.currentUser else {
+        guard let user = UserDefaults.standard.string(forKey: "UID") else {
             return
         }
         
-        templatesRef.child("\(user.uid)").listAll { (result, error) in
+        templatesRef.child("\(user)").listAll { (result, error) in
             
             if let error = error {
                 print(error)

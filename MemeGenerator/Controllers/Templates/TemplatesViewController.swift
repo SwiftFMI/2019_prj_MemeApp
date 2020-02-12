@@ -20,15 +20,20 @@ class TemplatesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addButton.layer.cornerRadius = 10
+        
         StorageManager.shared.getTemplates {
+            
             StorageManager.shared.getUsersTemplates {
+                
                 self.collectionView.reloadData()
             }
         }
     }
     
     @IBAction func addButtonPressed(_ sender: Any) {
+        
         showImagePickerControllerActionSheet()
+        
     }
     
 }
@@ -107,11 +112,15 @@ extension TemplatesViewController : UIImagePickerControllerDelegate, UINavigatio
         guard  let imageURL = info[.imageURL] as? NSURL else {
             return
         }
+        var activityIndicator = UIActivityIndicatorView()
+        activityIndicator.frame = CGRect(x: self.view.frame.width / 2 - 30, y: self.view.frame.height / 2 - 30 , width: 60, height: 60)
+        self.view.addSubview(activityIndicator)
         
         StorageManager.shared.uploadImage( url: imageURL.absoluteURL, complition: { success in
             if success, !self.isSearching {
                 let indexPath = IndexPath(row: StorageManager.shared.images.count - 1, section: 0 )
                 self.collectionView.insertItems(at: [indexPath])
+                self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
             }
              picker.dismiss(animated: true)
         })

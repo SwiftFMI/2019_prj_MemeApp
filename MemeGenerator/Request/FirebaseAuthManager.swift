@@ -27,12 +27,13 @@ final class FirebaseAuthManager: NSObject {
                 completion(false, error)
                 return
             }
-            guard let _ = user else {
+            guard let user = user else {
                 completion(false, AuthError.noUser)
                 return
             }
+            
             UserDefaults.standard.set(true, forKey: "isLoggedIn")
-            UserDefaults.standard.set(user?.user.uid, forKey: "UID")
+            UserDefaults.standard.set(user.user.uid, forKey: "UID")
             UserDefaults.standard.synchronize()
             completion(true, nil)
         }

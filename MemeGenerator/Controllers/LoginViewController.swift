@@ -26,11 +26,18 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)
         
+        if UserDefaults.standard.bool(forKey: "isLoggedIn") , let uid = UserDefaults.standard.string(forKey: "UID"), !uid.isEmpty {
+            self.presentMainTabBarController(completion: {
+                                   self.navigationController?.viewControllers.removeFirst()
+                               })
+        }
+        
         setupBackground()
         emailAdress.center.x -= view.frame.width
         password.center.x -= view.frame.width
         screenTitleLabel.center.x -= view.frame.width
         logControll.center.x -= view.frame.width
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,7 +119,9 @@ class LoginViewController: UIViewController {
         } else {
             FirebaseAuthManager.shared.singUp(email: emailAdress.text, password: password.text, username: username.text, completion: { success , error in
                 if success {
-                    
+                    self.presentMainTabBarController(completion: {
+                        self.navigationController?.viewControllers.removeFirst()
+                    })
                 } else {
                     self.errorLabel.text = error?.localizedDescription
                     self.errorLabel.isHidden = false
