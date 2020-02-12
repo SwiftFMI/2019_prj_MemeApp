@@ -17,10 +17,11 @@ class TemplatesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addButton.layer.cornerRadius = 10
         StorageManager.shared.getTemplates {
-           
+            StorageManager.shared.getUsersTemplates {
                 self.collectionView.reloadData()
-            
+            }
         }
     }
     
@@ -104,5 +105,25 @@ extension TemplatesViewController : UIImagePickerControllerDelegate, UINavigatio
                 picker.dismiss(animated: true)
             }
         })
+    }
+}
+
+
+extension TemplatesViewController: UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
     }
 }
