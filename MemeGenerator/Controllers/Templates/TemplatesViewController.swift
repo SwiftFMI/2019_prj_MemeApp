@@ -20,20 +20,28 @@ class TemplatesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addButton.layer.cornerRadius = 10
+        setupBackground()
         
-        StorageManager.shared.getTemplates {
-            
-            StorageManager.shared.getUsersTemplates {
-                
-                self.collectionView.reloadData()
-            }
+        guard let uid = UserDefaults.standard.string(forKey: "UID") else {
+                     return
         }
+        FirebaseAuthManager.shared.setUserInfo(uid: uid)
     }
     
     @IBAction func addButtonPressed(_ sender: Any) {
         
         showImagePickerControllerActionSheet()
         
+    }
+    
+    private func setupBackground() {
+        let gradient = CAGradientLayer()
+        gradient.frame.size = view.frame.size
+        gradient.startPoint = CGPoint(x: 0, y:0)
+        gradient.endPoint = CGPoint(x: 1, y: 1)
+        gradient.colors = [ #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1).cgColor , #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1).cgColor, #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1).cgColor]
+        view.layer.insertSublayer(gradient, at: 0)
+        collectionView.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
     }
     
 }

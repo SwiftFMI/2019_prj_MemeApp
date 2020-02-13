@@ -30,7 +30,7 @@ final class StorageManager: NSObject {
             for item in result.items {
                 item.downloadURL { url, error in
                     if let error = error {
-                        // Handle any errors
+                        print(error)
                         
                     } else {
                         guard let url = url else {
@@ -62,7 +62,7 @@ final class StorageManager: NSObject {
             for item in result.items {
                 item.downloadURL { url, error in
                     if let error = error {
-                        // Handle any errors
+                        print(error)
                         
                     } else {
                         guard let url = url else {
@@ -81,13 +81,14 @@ final class StorageManager: NSObject {
     
     
     func uploadImage(url: URL?, complition: @escaping (_ success: Bool) -> ()) {
-        guard let url = url else {
+        guard let url = url , let uid = UserDefaults.standard.string(forKey: "UID") else {
             complition(false)
             return
         }
-        let imageRef = templatesRef.child("\(FirebaseAuthManager.shared.currentUser!.uid)").child("\(url.lastPathComponent)")
+        let imageRef = templatesRef.child(uid).child("\(url.lastPathComponent)")
         imageRef.putFile(from: url, metadata: nil, completion: { metadata, error in
             if let error = error  {
+                print(error)
                 complition(false)
                 return
             }
@@ -98,6 +99,7 @@ final class StorageManager: NSObject {
             
             imageRef.downloadURL(completion: { url , error in
                 if let error = error  {
+                    print(error)
                     complition(false)
                     return
                 }

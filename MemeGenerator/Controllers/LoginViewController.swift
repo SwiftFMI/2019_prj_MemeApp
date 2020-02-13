@@ -20,19 +20,18 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var logButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
     
-    private let gradient = CAGradientLayer()
-    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)
+        emailAdress.attributedPlaceholder = NSAttributedString(string: "Email Adress", attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0).withAlphaComponent(0.4)])
+        password.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0).withAlphaComponent(0.4)])
+         username.attributedPlaceholder = NSAttributedString(string: "Username", attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0).withAlphaComponent(0.4)])
         
-        if UserDefaults.standard.bool(forKey: "isLoggedIn") , let uid = UserDefaults.standard.string(forKey: "UID"), !uid.isEmpty {
-            self.presentMainTabBarController(completion: {
-                                   self.navigationController?.viewControllers.removeFirst()
-                               })
-        }
-        
+        logButton.backgroundColor = #colorLiteral(red: 0.6290653944, green: 0.6253284812, blue: 0.63193959, alpha: 1)
+        logButton.layer.cornerRadius = 25
         setupBackground()
+        
         emailAdress.center.x -= view.frame.width
         password.center.x -= view.frame.width
         screenTitleLabel.center.x -= view.frame.width
@@ -105,15 +104,27 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func logButtonPressed(_ sender: Any) {
+        
+        let indicator = UIActivityIndicatorView()
+        indicator.frame = logButton.frame
+        indicator.startAnimating()
+        indicator.style = .large
+        self.view.addSubview(indicator)
+    
         if logControll.selectedSegmentIndex == 0 {
             FirebaseAuthManager.shared.login(email: emailAdress.text, password: password.text, completion: {success,error in
                 if success {
-                    self.presentMainTabBarController(completion: {
-                        self.navigationController?.viewControllers.removeFirst()
-                    })
+                    StorageManager.shared.getTemplates {
+                        StorageManager.shared.getUsersTemplates {
+                            self.presentMainTabBarController(completion: {
+                                self.navigationController?.viewControllers.removeFirst()
+                            })
+                        }
+                    }
                 } else {
                     self.errorLabel.text = error?.localizedDescription
                     self.errorLabel.isHidden = false
+                    indicator.stopAnimating()
                 }
             })
         } else {
@@ -133,11 +144,8 @@ class LoginViewController: UIViewController {
     
     func presentMainTabBarController(completion: @escaping () -> () ) {
         let VC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabController") as! MainTabController
-        StorageManager.shared.getTemplates(completion: {
-            self.navigationController?.pushViewController(VC, animated: true)
-            completion()
-        })
-        
+        self.navigationController?.pushViewController(VC, animated: true)
+        completion()
     }
     
     private func clearTextField() {
@@ -149,11 +157,12 @@ class LoginViewController: UIViewController {
     }
     
     private func setupBackground() {
+        let gradient = CAGradientLayer()
         gradient.frame.size = view.frame.size
         gradient.startPoint = CGPoint(x: 1, y:1)
         gradient.endPoint = CGPoint(x: 0, y: 0)
         gradient.colors = [ #colorLiteral(red: 0.1426291466, green: 0.1426603794, blue: 0.1426250339, alpha: 1).cgColor , #colorLiteral(red: 0.235488981, green: 0.234095484, blue: 0.2365642488, alpha: 1).cgColor, #colorLiteral(red: 0.3131442964, green: 0.3145992458, blue: 0.3181353211, alpha: 1).cgColor]
         view.layer.insertSublayer(gradient, at: 0)
-        
     }
+    
 }

@@ -34,3 +34,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 }
 
+extension UIApplication {
+    
+    var keyWindowInScene: UIWindow? {
+        return windows.first { $0.isKeyWindow }
+    }
+}
+
