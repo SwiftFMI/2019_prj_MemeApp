@@ -18,10 +18,14 @@ final class FirebaseAuthManager: NSObject {
     var currentUser: User?
     
     func login(email: String?, password: String? , completion: @escaping (_ success: Bool, _ error: Error?) -> () ){
-        guard let email = email, let password = password else {
-            completion(false, nil)
-            return
-        }
+        guard let email = email, !email.isEmpty else {
+                  completion(false, AuthError.noEmailAddress)
+                  return
+              }
+              guard let password = password, !password.isEmpty else {
+                  completion(false, AuthError.noPassword)
+                  return
+              }
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error != nil {
                 completion(false, error)
@@ -40,14 +44,22 @@ final class FirebaseAuthManager: NSObject {
     }
     
     func singUp(email: String?, password: String? , username: String? , completion: @escaping (_ success: Bool, _ error: Error?) -> () ) {
-        guard let email = email, let password = password, let username = username else {
-            completion(false, AuthError.missingInfo)
+            guard let email = email, !email.isEmpty else {
+                     completion(false, AuthError.noEmailAddress)
+                     return
+                 }
+                 guard let password = password, !password.isEmpty else {
+                     completion(false, AuthError.noPassword)
+                     return
+                 }
+        guard let username = username , !username.isEmpty else {
+            completion(false, AuthError.noUsername)
             return
         }
         
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             guard let user = user , error == nil else {
-                completion(false, AuthError.missingInfo)
+                completion(false, AuthError.noUser)
                 return
             }
 
@@ -81,7 +93,11 @@ final class FirebaseAuthManager: NSObject {
 }
 
 enum AuthError: Error {
-    case missingInfo
+    case noEmailAddress
+    case noUsername
+    case noPassword
+    case wrongFormattedEmail
+    case wrongPassword
     case noUser
 }
 

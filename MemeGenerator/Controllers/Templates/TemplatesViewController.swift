@@ -14,6 +14,7 @@ class TemplatesViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var isSearching = false
     
@@ -23,9 +24,29 @@ class TemplatesViewController: UIViewController {
         setupBackground()
         
         guard let uid = UserDefaults.standard.string(forKey: "UID") else {
-                     return
+            return
         }
         FirebaseAuthManager.shared.setUserInfo(uid: uid)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        StorageManager.shared.searchedImages = []
+        isSearching = false
+        searchBar.text = ""
+        addButton.center.x -= 20
+        searchBar.alpha = 0
+        addButton.alpha = 0
+      
+        UIView.animate(withDuration: 0.5, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
+            self.addButton.center.x += 20
+            self.addButton.alpha = 1
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 0.5, delay: 0.1, options: [.transitionCurlDown], animations: {
+                 self.searchBar.alpha = 1
+             }, completion: nil)
+        
+        collectionView.reloadData()
     }
     
     @IBAction func addButtonPressed(_ sender: Any) {
@@ -56,14 +77,15 @@ extension TemplatesViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TemplateCollectionViewCell", for: indexPath) as! TemplatesCollectionViewCell
-        cell.image.kf.indicatorType = .activity
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TemplateCollectionViewCell", for: indexPath) as! TemplateCollectionViewCell
+        
         var url: URL?
         if isSearching {
             url = URL(string: StorageManager.shared.searchedImages[indexPath.row] )
         } else {
             url = URL(string: StorageManager.shared.images[indexPath.row] )
         }
+        cell.image.kf.indicatorType = .activity
         cell.image.kf.setImage(with: url)
         
         cell.backgroundView = UIView(frame: cell.contentView.frame)
@@ -79,6 +101,14 @@ extension TemplatesViewController: UICollectionViewDelegate, UICollectionViewDat
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        cell.alpha = 0
+        
+        UIView.animate( withDuration: 0.4, delay: 0.02 * Double(indexPath.row),
+                        animations: {
+                            cell.alpha = 1
+        })
+    }
 }
 
 extension TemplatesViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -120,9 +150,6 @@ extension TemplatesViewController : UIImagePickerControllerDelegate, UINavigatio
         guard  let imageURL = info[.imageURL] as? NSURL else {
             return
         }
-        var activityIndicator = UIActivityIndicatorView()
-        activityIndicator.frame = CGRect(x: self.view.frame.width / 2 - 30, y: self.view.frame.height / 2 - 30 , width: 60, height: 60)
-        self.view.addSubview(activityIndicator)
         
         StorageManager.shared.uploadImage( url: imageURL.absoluteURL, complition: { success in
             if success, !self.isSearching {
@@ -130,7 +157,7 @@ extension TemplatesViewController : UIImagePickerControllerDelegate, UINavigatio
                 self.collectionView.insertItems(at: [indexPath])
                 self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
             }
-             picker.dismiss(animated: true)
+            picker.dismiss(animated: true)
         })
     }
 }

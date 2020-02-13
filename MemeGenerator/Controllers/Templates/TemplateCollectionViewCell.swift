@@ -8,10 +8,8 @@
 
 import UIKit
 
-class TemplatesCollectionViewCell: UICollectionViewCell {
+class TemplateCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var image: UIImageView!
-    
-    
     
 }
