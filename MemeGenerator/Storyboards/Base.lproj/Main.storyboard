@@ -240,11 +240,26 @@
                                     </textField>
                                 </subviews>
                             </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="meme2" translatesAutoresizingMaskIntoConstraints="NO" id="QRp-2e-fob">
+                                <rect key="frame" x="10" y="702" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="8uC-tf-ZP2"/>
+                                    <constraint firstAttribute="height" constant="150" id="lxm-Ei-Vki"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="meme1" translatesAutoresizingMaskIntoConstraints="NO" id="g6c-cW-XdZ">
+                                <rect key="frame" x="254" y="445.5" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="7IJ-h5-vWF"/>
+                                    <constraint firstAttribute="height" constant="150" id="Ku4-9w-0ku"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="r7i-vg-3uF" firstAttribute="trailing" secondItem="V13-Jk-JdJ" secondAttribute="trailing" constant="20" id="0YM-CP-nWF"/>
                             <constraint firstItem="gZg-Zw-uHp" firstAttribute="centerX" secondItem="P6R-g1-Jfh" secondAttribute="centerX" id="4sz-MQ-hxD"/>
+                            <constraint firstItem="r7i-vg-3uF" firstAttribute="trailing" secondItem="g6c-cW-XdZ" secondAttribute="trailing" constant="10" id="7LR-Z1-l31"/>
                             <constraint firstItem="XKi-37-v7u" firstAttribute="leading" secondItem="r7i-vg-3uF" secondAttribute="leading" constant="20" id="AFW-DR-aZr"/>
                             <constraint firstItem="r7i-vg-3uF" firstAttribute="trailing" secondItem="uie-x2-yVT" secondAttribute="trailing" constant="10" id="CWk-gP-jL6"/>
                             <constraint firstItem="gZg-Zw-uHp" firstAttribute="top" secondItem="P6R-g1-Jfh" secondAttribute="bottom" constant="20" id="CeS-YH-4SH"/>
@@ -253,10 +268,13 @@
                             <constraint firstItem="XKi-37-v7u" firstAttribute="top" relation="greaterThanOrEqual" secondItem="V13-Jk-JdJ" secondAttribute="bottom" constant="10" id="XLg-td-Yen"/>
                             <constraint firstItem="uie-x2-yVT" firstAttribute="top" secondItem="gZg-Zw-uHp" secondAttribute="bottom" constant="10" id="aTq-dT-rKm"/>
                             <constraint firstItem="P6R-g1-Jfh" firstAttribute="width" secondItem="r7i-vg-3uF" secondAttribute="width" multiplier="0.5" id="f7N-7H-5l3"/>
+                            <constraint firstItem="QRp-2e-fob" firstAttribute="leading" secondItem="r7i-vg-3uF" secondAttribute="leading" constant="10" id="fe0-tr-Sc7"/>
                             <constraint firstItem="XKi-37-v7u" firstAttribute="centerY" secondItem="0l3-wm-zM7" secondAttribute="centerY" priority="750" constant="-200" id="glX-AT-GDA"/>
                             <constraint firstItem="V13-Jk-JdJ" firstAttribute="top" secondItem="r7i-vg-3uF" secondAttribute="top" constant="20" id="h5t-BJ-2Yx"/>
+                            <constraint firstItem="g6c-cW-XdZ" firstAttribute="top" secondItem="uie-x2-yVT" secondAttribute="bottom" constant="20" id="qTP-xo-gtb"/>
                             <constraint firstItem="r7i-vg-3uF" firstAttribute="trailing" secondItem="XKi-37-v7u" secondAttribute="trailing" constant="20" id="rIY-5P-siA"/>
                             <constraint firstItem="P6R-g1-Jfh" firstAttribute="top" secondItem="XKi-37-v7u" secondAttribute="bottom" constant="20" id="rRv-i9-Dwm"/>
+                            <constraint firstItem="r7i-vg-3uF" firstAttribute="bottom" secondItem="QRp-2e-fob" secondAttribute="bottom" constant="10" id="s7y-nI-K87"/>
                             <constraint firstItem="P6R-g1-Jfh" firstAttribute="centerX" secondItem="0l3-wm-zM7" secondAttribute="centerX" id="yV0-3F-jyY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="r7i-vg-3uF"/>
@@ -267,6 +285,8 @@
                         <outlet property="errorLabel" destination="uie-x2-yVT" id="JcD-bj-bkT"/>
                         <outlet property="logButton" destination="gZg-Zw-uHp" id="ZSx-Wr-D0F"/>
                         <outlet property="logControll" destination="P6R-g1-Jfh" id="4Il-de-qWw"/>
+                        <outlet property="memeImage1" destination="g6c-cW-XdZ" id="5HC-aF-S08"/>
+                        <outlet property="memeImage2" destination="QRp-2e-fob" id="jAj-6l-YTz"/>
                         <outlet property="password" destination="A9T-sy-hmb" id="5bp-8Q-xo2"/>
                         <outlet property="screenTitleLabel" destination="V13-Jk-JdJ" id="Xsk-jV-uI2"/>
                         <outlet property="username" destination="r7D-DM-eRC" id="RNL-t8-u7S"/>
@@ -316,6 +336,8 @@
     </scenes>
     <resources>
         <image name="folder" catalog="system" width="64" height="46"/>
+        <image name="meme1" width="512" height="502"/>
+        <image name="meme2" width="512" height="412"/>
         <image name="person" catalog="system" width="64" height="58"/>
     </resources>
 </document>

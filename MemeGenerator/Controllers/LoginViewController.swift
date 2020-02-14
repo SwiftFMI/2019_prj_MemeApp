@@ -20,6 +20,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var logButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
     
+    @IBOutlet weak var memeImage1: UIImageView!
+    @IBOutlet weak var memeImage2: UIImageView!
+    
     let indicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
@@ -39,10 +42,16 @@ class LoginViewController: UIViewController {
         screenTitleLabel.center.x -= view.frame.width
         logControll.center.x -= view.frame.width
         
+        memeImage2.center.x -= 20
+        memeImage1.center.x -= 20
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        memeImage1.alpha = 0
+        memeImage2.alpha = 0
         
         UIView.animate(withDuration: 1, delay: 0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
             self.screenTitleLabel.center.x += self.view.frame.width
@@ -55,6 +64,14 @@ class LoginViewController: UIViewController {
         }, completion: nil)
         UIView.animate(withDuration: 1, delay: 0.4, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
             self.logControll.center.x += self.view.frame.width
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 1, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
+            self.memeImage1.alpha = 1
+            self.memeImage2.alpha = 1
+            
+            self.memeImage2.center.x += 20
+            self.memeImage1.center.x += 20
         }, completion: nil)
         
     }
