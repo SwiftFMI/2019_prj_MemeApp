@@ -8,6 +8,7 @@
 
 import UIKit
 
+@available(iOS 13, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
@@ -16,16 +17,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let scene = (scene as? UIWindowScene) else { return }
+       
         
-        if UserDefaults.standard.bool(forKey: "isLoggedIn") {
-            window = UIWindow(windowScene: scene)
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let initialViewController = storyboard.instantiateViewController(withIdentifier: "MainTabController")
-            self.window?.rootViewController = initialViewController
+
+        
+        if UserDefaults.standard.bool(forKey: "isLoggedIn") , let uid = UserDefaults.standard.string(forKey: "UID"), !uid.isEmpty {
+            self.window = UIWindow(windowScene: scene)
+            let launchVC = UIStoryboard(name:"LaunchScreen", bundle: nil).instantiateViewController(withIdentifier: "LaunchScreen")
+            self.window?.rootViewController = launchVC
             self.window?.makeKeyAndVisible()
+
+            StorageManager.shared.getTemplates {
+                StorageManager.shared.getUsersTemplates {
+                     self.window = UIWindow(windowScene: scene)
+                    let initialViewController = UIStoryboard(name: "Main", bundle:
+                        nil).instantiateViewController(withIdentifier: "MainTabController")
+                                   self.window?.rootViewController = initialViewController
+                                   self.window?.makeKeyAndVisible()
+                }
+            }
         }
-        
     }
+    
     
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
