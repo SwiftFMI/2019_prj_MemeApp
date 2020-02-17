@@ -67,8 +67,8 @@ class LoginViewController: UIViewController {
         }, completion: nil)
         
         UIView.animate(withDuration: 1, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
-            self.memeImage1.alpha = 1
-            self.memeImage2.alpha = 1
+            self.memeImage1.alpha = 0.6
+            self.memeImage2.alpha = 0.6
             
             self.memeImage2.center.x += 20
             self.memeImage1.center.x += 20
