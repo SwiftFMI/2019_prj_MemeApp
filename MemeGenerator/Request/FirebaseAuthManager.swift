@@ -106,6 +106,27 @@ final class FirebaseAuthManager: NSObject {
         completion?(true)
         
     }
+    
+    func changeUsername(newUsername: String) {
+        guard let user = FirebaseAuthManager.shared.currentUser else {
+              return
+          }
+        var post: [String: String] = [:]
+        if  let profileURL = user.profileImage {
+             post = ["uid": user.uid,
+                        "username": newUsername,
+                        "profileImage": profileURL.absoluteString,
+            ]
+        } else {
+            post = ["uid": user.uid,
+                                "username": newUsername,
+                                "profileImage": "",
+                    ]
+        }
+         
+          databaseRef.child("users").child(user.uid).setValue(post)
+        FirebaseAuthManager.shared.currentUser?.username = newUsername
+    }
 }
 
 enum AuthError: Error {

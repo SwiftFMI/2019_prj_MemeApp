@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import  UIKit
+import UIKit
 import FirebaseStorage
 
 
@@ -72,9 +72,14 @@ final class StorageManager: NSObject {
                         n -= 1
                         if n == 0 {
                             completion()
+                            return
                         }
                     }
                 }
+            }
+            if n == 0 {
+                completion()
+                return 
             }
         }
     }
@@ -89,7 +94,10 @@ final class StorageManager: NSObject {
                     return
                     
                 }
+                
                 self.images.append(url.absoluteString)
+                complition(true)
+                return
             }
             complition(false)
         })

@@ -154,9 +154,10 @@ extension TemplatesViewController : UIImagePickerControllerDelegate, UINavigatio
                 self.collectionView.insertItems(at: [indexPath])
                 self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
             }
+             picker.dismiss(animated: true)
             
         })
-        picker.dismiss(animated: true)
+       
     }
 }
 
