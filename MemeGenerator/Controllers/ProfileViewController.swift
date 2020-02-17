@@ -13,7 +13,7 @@ class ProfileViewController: UIViewController {
     
     
     @IBOutlet weak var logoutButton: UIButton!
-    
+    @IBOutlet weak var profileImage: UIButton!
     @IBOutlet weak var posts: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     
@@ -22,10 +22,15 @@ class ProfileViewController: UIViewController {
         logoutButton.layer.cornerRadius = 10
         setupBackground()
         
-            guard let user = FirebaseAuthManager.shared.currentUser else {
-                return
+        if let uid = UserDefaults.standard.string(forKey: "UID") {
+            FirebaseAuthManager.shared.setUserInfo(uid: uid) {
+                guard let user = FirebaseAuthManager.shared.currentUser else {
+                    return
+                }
+                self.usernameLabel.text = "USER: \(user.username)"
+                self.profileImage.kf.setImage(with: user.profileImage, for: .normal)
             }
-            self.usernameLabel.text = "USER: \(user.username)"
+        }
         
     }
     
@@ -43,6 +48,11 @@ class ProfileViewController: UIViewController {
         
     }
     
+    
+    @IBAction func changeProfileImage(_ sender: Any) {
+        showImagePickerControllerActionSheet()
+    }
+    
     private func setupBackground() {
         let gradient = CAGradientLayer()
         gradient.frame.size = view.frame.size
@@ -52,4 +62,51 @@ class ProfileViewController: UIViewController {
         view.layer.insertSublayer(gradient, at: 0)
     }
     
+}
+
+extension ProfileViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func showImagePickerControllerActionSheet() {
+        let alert  = UIAlertController(title:  "Choose your image ", message: nil, preferredStyle: .actionSheet)
+        let photoLibraryAction = UIAlertAction(title: "Choose from library", style: .default) { (action) in
+            self.showImagePickerController(sourceType: .photoLibrary)
+        }
+        let cameraAction = UIAlertAction(title: "Take from Camera", style: .default) { (action) in
+            self.showImagePickerController(sourceType: .camera)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(photoLibraryAction)
+        alert.addAction(cameraAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true)
+    }
+    
+    func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        imagePickerController.sourceType = sourceType
+        present(imagePickerController,animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        guard  let imageURL = info[.imageURL] as? NSURL else {
+            return
+        }
+        
+        StorageManager.shared.changeProfileImage(url: imageURL as URL , completion: {
+            success in
+            
+            if success {
+                guard let user = FirebaseAuthManager.shared.currentUser, let imageURLPath = user.profileImage else {
+                    return
+                }
+                FirebaseAuthManager.shared.changeProfileImage(url: imageURLPath, completion: nil)
+                self.profileImage.kf.setImage(with: imageURLPath, for: .normal)
+            }
+        })
+        picker.dismiss(animated: true)
+    }
 }

@@ -23,10 +23,6 @@ class TemplatesViewController: UIViewController {
         addButton.layer.cornerRadius = 10
         setupBackground()
         
-        guard let uid = UserDefaults.standard.string(forKey: "UID") else {
-            return
-        }
-        FirebaseAuthManager.shared.setUserInfo(uid: uid)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,15 +32,15 @@ class TemplatesViewController: UIViewController {
         addButton.center.x -= 20
         searchBar.alpha = 0
         addButton.alpha = 0
-      
+        
         UIView.animate(withDuration: 0.5, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
             self.addButton.center.x += 20
             self.addButton.alpha = 1
         }, completion: nil)
         
         UIView.animate(withDuration: 0.5, delay: 0.1, options: [.transitionCurlDown], animations: {
-                 self.searchBar.alpha = 1
-             }, completion: nil)
+            self.searchBar.alpha = 1
+        }, completion: nil)
         
         collectionView.reloadData()
     }
@@ -151,14 +147,16 @@ extension TemplatesViewController : UIImagePickerControllerDelegate, UINavigatio
             return
         }
         
-        StorageManager.shared.uploadImage( url: imageURL.absoluteURL, complition: { success in
+        StorageManager.shared.uploadTemplates(url: imageURL.absoluteURL, complition: {
+            success in
             if success, !self.isSearching {
                 let indexPath = IndexPath(row: StorageManager.shared.images.count - 1, section: 0 )
                 self.collectionView.insertItems(at: [indexPath])
                 self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
             }
-            picker.dismiss(animated: true)
+            
         })
+        picker.dismiss(animated: true)
     }
 }
 

@@ -79,39 +79,80 @@ final class StorageManager: NSObject {
         }
     }
     
-    
-    func uploadImage(url: URL?, complition: @escaping (_ success: Bool) -> ()) {
-        guard let url = url , let uid = UserDefaults.standard.string(forKey: "UID") else {
+    func uploadTemplates( url: URL?, complition: @escaping (_ success: Bool) -> ()) {
+        
+        uploadImage(refPath: "Templates/", url: url, complition: {
+            success, url  in
+            if success {
+                guard let url = url , let _ = UserDefaults.standard.string(forKey: "UID") else {
+                    complition(false)
+                    return
+                    
+                }
+                self.images.append(url.absoluteString)
+            }
             complition(false)
+        })
+    }
+    
+    func changeProfileImage(url: URL, completion: @escaping (_ success: Bool) -> ()) {
+        
+        if let uid = FirebaseAuthManager.shared.currentUser?.uid ,let url = FirebaseAuthManager.shared.currentUser?.profileImage {
+            let desertRef = storageRef.child("ProfileImages/\(uid)").child(url.lastPathComponent)
+            desertRef.delete { error in
+                if let error = error {
+                    print(error)
+                }
+            }
+        }
+        
+        self.uploadImage(refPath: "ProfileImages", url: url, complition: {
+            success, urlPath in
+            if success {
+                guard let _ = FirebaseAuthManager.shared.currentUser else {
+                    completion(false)
+                    return
+                }
+                
+                FirebaseAuthManager.shared.currentUser?.profileImage = urlPath
+                completion(true)
+                return
+            }
+            completion(false)
+        })
+        
+    }
+    
+    private func uploadImage(refPath: String, url: URL?, complition: @escaping (_ success: Bool,_ url: URL?) -> ()) {
+        guard let url = url , let uid = UserDefaults.standard.string(forKey: "UID") else {
+            complition(false,nil)
             return
         }
-        let imageRef = templatesRef.child(uid).child("\(url.lastPathComponent)")
+        let imageRef = storageRef.child(refPath).child(uid).child(url.lastPathComponent)
         imageRef.putFile(from: url, metadata: nil, completion: { metadata, error in
             if let error = error  {
                 print(error)
-                complition(false)
+                complition(false,nil)
                 return
             }
             guard let _ = metadata else {
-                complition(false)
+                complition(false,nil)
                 return
             }
             
             imageRef.downloadURL(completion: { url , error in
                 if let error = error  {
                     print(error)
-                    complition(false)
+                    complition(false,nil)
                     return
                 }
                 guard let url = url else {
-                    complition(false)
+                    complition(false,nil)
                     return
                 }
-                self.images.append(url.absoluteString)
-                complition(true)
+                complition(true, url)
             })
         })
-        
     }
     
     func searchTemplates(_ word: String ) {
