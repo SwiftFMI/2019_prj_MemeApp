@@ -22,6 +22,8 @@
 		95DEB93023E9B197009E7DAF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEB92F23E9B197009E7DAF /* User.swift */; };
 		95DEB93423E9B52B009E7DAF /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEB93323E9B52B009E7DAF /* FirebaseAuthManager.swift */; };
 		F24B052DBB57AF64C3DB9182 /* Pods_MemeGenerator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6774A652C35E902AE1D1193C /* Pods_MemeGenerator.framework */; };
+		FB6B811D23FB268200AA9EFB /* MemeEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6B811C23FB268200AA9EFB /* MemeEditController.swift */; };
+		FB6B811F23FB344E00AA9EFB /* MemeEditControllerHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6B811E23FB344E00AA9EFB /* MemeEditControllerHandlers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		95DEB93323E9B52B009E7DAF /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		B5BEF4841C30F3AAF44D2D66 /* Pods-MemeGenerator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemeGenerator.release.xcconfig"; path = "Target Support Files/Pods-MemeGenerator/Pods-MemeGenerator.release.xcconfig"; sourceTree = "<group>"; };
 		C72E202FA77AD3F4128EF2D8 /* Pods-MemeGenerator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemeGenerator.debug.xcconfig"; path = "Target Support Files/Pods-MemeGenerator/Pods-MemeGenerator.debug.xcconfig"; sourceTree = "<group>"; };
+		FB6B811C23FB268200AA9EFB /* MemeEditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeEditController.swift; sourceTree = "<group>"; };
+		FB6B811E23FB344E00AA9EFB /* MemeEditControllerHandlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeEditControllerHandlers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +129,8 @@
 				95DEB92B23E9AA87009E7DAF /* LoginViewController.swift */,
 				950E6D4523ED937E00A1676D /* MainTabBarController.swift */,
 				95AAB9EE23F4417000AD0A8F /* ProfileViewController.swift */,
+				FB6B811C23FB268200AA9EFB /* MemeEditController.swift */,
+				FB6B811E23FB344E00AA9EFB /* MemeEditControllerHandlers.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -272,8 +278,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				950E6D4823EDA9F700A1676D /* StorageManager.swift in Sources */,
+				FB6B811D23FB268200AA9EFB /* MemeEditController.swift in Sources */,
 				95DEB92C23E9AA87009E7DAF /* LoginViewController.swift in Sources */,
 				95AAB9EF23F4417000AD0A8F /* ProfileViewController.swift in Sources */,
+				FB6B811F23FB344E00AA9EFB /* MemeEditControllerHandlers.swift in Sources */,
 				95DEB93423E9B52B009E7DAF /* FirebaseAuthManager.swift in Sources */,
 				95DEB8FA23E9970F009E7DAF /* TemplatesViewController.swift in Sources */,
 				950E6D4A23EDB9E700A1676D /* TemplateCollectionViewCell.swift in Sources */,
