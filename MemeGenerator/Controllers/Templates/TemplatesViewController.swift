@@ -105,6 +105,25 @@ extension TemplatesViewController: UICollectionViewDelegate, UICollectionViewDat
                             cell.alpha = 1
         })
     }
+    
+    func updateTemplates(url imageURL: URL) {
+        let activity = UIActivityIndicatorView(frame: self.view.frame)
+        activity.startAnimating()
+        activity.style = .large
+        activity.frame.size = CGSize(width: 200, height: 200)
+        view.addSubview(activity)
+        StorageManager.shared.uploadTemplates(url: imageURL.absoluteURL, complition: {
+                   success in
+                   if success, !self.isSearching {
+                       let indexPath = IndexPath(row: StorageManager.shared.images.count - 1, section: 0 )
+                       self.collectionView.insertItems(at: [indexPath])
+                       self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+                    activity.stopAnimating()
+                    activity.removeFromSuperview()
+                   }
+                   
+               })
+    }
 }
 
 extension TemplatesViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -143,20 +162,12 @@ extension TemplatesViewController : UIImagePickerControllerDelegate, UINavigatio
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        guard  let imageURL = info[.imageURL] as? NSURL else {
+        guard  let imageURL = info[.imageURL] as? NSURL, let url = imageURL.absoluteURL else {
             return
         }
         
-        StorageManager.shared.uploadTemplates(url: imageURL.absoluteURL, complition: {
-            success in
-            if success, !self.isSearching {
-                let indexPath = IndexPath(row: StorageManager.shared.images.count - 1, section: 0 )
-                self.collectionView.insertItems(at: [indexPath])
-                self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
-            }
-             picker.dismiss(animated: true)
-            
-        })
+        picker.dismiss(animated: true)
+        updateTemplates(url: url)
        
     }
 }
