@@ -111,7 +111,9 @@ class MemeEditViewController: UIViewController, UIDropInteractionDelegate, UINav
     
     
     @IBAction func closeEditAction(_ sender: Any) {
-//        self.navigationController?.viewControllers.removeFirst()
+        let VC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabController") as! MainTabController
+        VC.modalPresentationStyle = .fullScreen
+        self.present(VC, animated: true, completion: nil)
     }
     
 }
