@@ -10,10 +10,9 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    
-    
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var profileImage: UIButton!
+    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var changeUsernameButton: UIButton!
@@ -24,6 +23,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         logoutButton.layer.cornerRadius = 10
         usernameTextField.isHidden = true
+        usernameTextField.delegate = self
         setupBackground()
         
         if let uid = UserDefaults.standard.string(forKey: "UID") {
@@ -41,8 +41,8 @@ class ProfileViewController: UIViewController {
                     .foregroundColor: UIColor.black
                 ], range: NSRange(location: 0, length: 8))
                 self.usernameLabel.attributedText = attrString
-                
-                self.profileImage.kf.setImage(with: user.profileImage, for: .normal)
+
+                self.profileImage.kf.setImage(with: user.profileImage)
             }
         }
     }
@@ -53,21 +53,22 @@ class ProfileViewController: UIViewController {
         logoutButton.center.x -= 50
         stack.center.x -= 50
         profileImage.alpha = 0
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
-        titleLabel.alpha = 0
-        UIView.transition(with: titleLabel, duration: 0.7, options: [.transitionFlipFromLeft], animations: {
-            self.titleLabel.alpha = 1
-            self.profileImage.alpha = 1
-        }, completion: nil)
-        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
+        UIView.animate(withDuration: 0.6, delay: 0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
             self.stack.center.x += 50
             self.logoutButton.center.x += 50
         }, completion: nil)
-      
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        titleLabel.alpha = 0
+        cameraButton.alpha = 0
+        UIView.transition(with: titleLabel, duration: 0.7, options: [.transitionFlipFromLeft], animations: {
+            self.titleLabel.alpha = 1
+            self.profileImage.alpha = 1
+            self.cameraButton.alpha = 1
+        }, completion: nil)
     }
     
     @IBAction func changeUsernameButtonPressed(_ sender: Any) {
@@ -90,7 +91,7 @@ class ProfileViewController: UIViewController {
         
     }
     
-    @IBAction func changeProfileImage(_ sender: Any) {
+    @IBAction func cameraButtonPressed(_ sender: Any) {
         showImagePickerControllerActionSheet()
     }
     
@@ -145,7 +146,7 @@ extension ProfileViewController : UIImagePickerControllerDelegate, UINavigationC
                     return
                 }
                 FirebaseAuthManager.shared.changeProfileImage(url: imageURLPath, completion: nil)
-                self.profileImage.kf.setImage(with: imageURLPath, for: .normal)
+                 self.profileImage.kf.setImage(with: user.profileImage)
             }
         })
         picker.dismiss(animated: true)
@@ -159,15 +160,39 @@ extension ProfileViewController: UITextFieldDelegate {
         
         usernameTextField.isHidden = true
         guard let username = usernameTextField.text else {
-            usernameLabel.text = "username"
+           let attrString = NSMutableAttributedString(string: "username:", attributes: [
+               .font: UIFont(name: "HelveticaNeue-Medium", size: 20.0)!,
+               .foregroundColor: UIColor.black,
+               .kern: -0.09
+           ])
+           self.usernameLabel.attributedText = attrString
             return
         }
-        usernameLabel.text = username
-        FirebaseAuthManager.shared.changeUsername(newUsername: username)
+        if username.isEmpty {
+            let alert = UIAlertController(title: "", message: "Please enter username", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
+                
+        } else {
+            let attrString = NSMutableAttributedString(string: "username: \(username)", attributes: [
+                .font: UIFont(name: "HelveticaNeue-Medium", size: 20.0)!,
+                .foregroundColor: UIColor.black,
+                .kern: -0.09
+            ])
+            attrString.addAttributes([
+                .font: UIFont(name: "HelveticaNeue-Bold", size: 18.0)!,
+                .foregroundColor: UIColor.black
+            ], range: NSRange(location: 0, length: 8))
+            self.usernameLabel.attributedText = attrString
+            FirebaseAuthManager.shared.changeUsername(newUsername: username)
+        }
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         return true
     }
     
+
 }
