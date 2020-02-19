@@ -19,6 +19,7 @@ class MemeEditViewController: UIViewController, UIDropInteractionDelegate, UINav
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var navBar: UITabBarItem!
     
     let memeTextAttributes: [NSAttributedString.Key : Any] = [
             .strokeColor : UIColor.black,
@@ -59,7 +60,7 @@ class MemeEditViewController: UIViewController, UIDropInteractionDelegate, UINav
     // top and bottom text field will show
     @IBAction func addTextAction(_ sender: Any) {
         topTextField.isHidden = !topTextField.isHidden
-        bottomTextField.isHidden = !bottomTextField.isHidden
+        bottomTextField.isHidden = topTextField.isHidden
         
         // listen for keyboard events
         subscribeToKeyboardNotifications()
@@ -110,6 +111,7 @@ class MemeEditViewController: UIViewController, UIDropInteractionDelegate, UINav
     
     
     @IBAction func closeEditAction(_ sender: Any) {
+//        self.navigationController?.viewControllers.removeFirst()
     }
     
 }
