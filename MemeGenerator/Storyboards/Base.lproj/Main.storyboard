@@ -176,7 +176,7 @@
         <scene sceneID="6dK-xN-39E">
             <objects>
                 <viewController id="4IU-Xr-y09" customClass="PhotoGalleryViewController" customModule="MemeGenerator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="q5s-xH-555">
+                    <view key="view" contentMode="scaleToFill" id="q5s-xH-555" customClass="Pho">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -349,7 +349,7 @@
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="meme2" translatesAutoresizingMaskIntoConstraints="NO" id="g6c-cW-XdZ">
-                                <rect key="frame" x="254" y="445.5" width="150" height="150"/>
+                                <rect key="frame" x="254" y="445.49999999999994" width="150" height="150.00000000000017"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="7IJ-h5-vWF"/>
                                     <constraint firstAttribute="height" constant="150" id="Ku4-9w-0ku"/>
