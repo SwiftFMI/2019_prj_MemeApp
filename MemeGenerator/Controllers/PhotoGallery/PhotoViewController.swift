@@ -2,7 +2,7 @@
 //  PhotoViewController.swift
 //  MemeGenerator
 //
-//  Created by Guest Account with permissions on 19.02.20.
+//  Created by Nikola Bratanov on 19.02.20.
 //  Copyright © 2020 Ralitsa Dobreva. All rights reserved.
 //
 
@@ -22,8 +22,6 @@ class PhotoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
 }

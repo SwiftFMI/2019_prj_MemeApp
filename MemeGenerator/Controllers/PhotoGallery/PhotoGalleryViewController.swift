@@ -2,24 +2,28 @@
 //  PhotoGalleryViewController.swift
 //  MemeGenerator
 //
-//  Created by Guest Account with permissions on 19.02.20.
+//  Created by Nikola Bratanov on 19.02.20.
 //  Copyright © 2020 Ralitsa Dobreva. All rights reserved.
 //
 
 import UIKit
+import Kingfisher
 
-let reuseIdentifier = "PhotoCell"
+let reuseIdentifier = "PhotoCollectionViewCell"
 
 class PhotoGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
-    
     @IBOutlet weak var collectionView: UICollectionView!
             
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+                
         setupBackground()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+              
+        self.collectionView.reloadData()
     }
 
     private func setupBackground() {
@@ -34,16 +38,27 @@ class PhotoGalleryViewController: UIViewController, UICollectionViewDataSource, 
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 50
+        return StorageManager.shared.memes.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell: UICollectionViewCell = collectionView.dequeueReusableCell( withReuseIdentifier: reuseIdentifier, for: indexPath) as UICollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
         
-        cell.backgroundColor = UIColor.red
-        
+        guard let url = URL(string: StorageManager.shared.memes[indexPath.row]) else { return cell }
+        cell.image.kf.indicatorType = .activity
+        cell.image.kf.setImage(with: url)
+
+        cell.backgroundView = UIView(frame: cell.contentView.frame)
+        cell.contentView.layer.cornerRadius = 10
+        cell.backgroundView?.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        cell.backgroundView?.alpha = 0.3
+
         return cell
     }
 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width:( collectionView.frame.width - 5 ) / 2, height: (collectionView.frame.height - 10)/4)
+
+    }
 }

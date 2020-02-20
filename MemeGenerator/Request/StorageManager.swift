@@ -16,9 +16,11 @@ final class StorageManager: NSObject {
     static let shared = StorageManager()
     private let storageRef = Storage.storage().reference()
     private var templatesRef = Storage.storage().reference().child("Templates")
+    private var memesRef = Storage.storage().reference().child("Memes")
     
     var images: [String] = []
     var searchedImages: [String] = []
+    var memes: [String] = []
     
     func getTemplates(completion: @escaping () -> () ) {
         
@@ -79,6 +81,34 @@ final class StorageManager: NSObject {
         }
     }
     
+    func getMemes(completion: @escaping () -> ()) {
+        
+        memesRef.listAll { (result, error) in
+            
+            if let error = error {
+                print(error)
+            }
+            var n = result.items.count
+            for item in result.items {
+                item.downloadURL { url, error in
+                    if let error = error {
+                        print(error)
+                        
+                    } else {
+                        guard let url = url else {
+                            return
+                        }
+                        print(url.absoluteString)
+                        self.memes.append(url.absoluteString)
+                        n -= 1
+                        if n == 0 {
+                            completion()
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     func uploadImage(url: URL?, complition: @escaping (_ success: Bool) -> ()) {
         guard let url = url , let uid = UserDefaults.standard.string(forKey: "UID") else {

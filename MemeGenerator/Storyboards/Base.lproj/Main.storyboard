@@ -176,7 +176,7 @@
         <scene sceneID="6dK-xN-39E">
             <objects>
                 <viewController id="4IU-Xr-y09" customClass="PhotoGalleryViewController" customModule="MemeGenerator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="q5s-xH-555" customClass="Pho">
+                    <view key="view" contentMode="scaleToFill" id="q5s-xH-555" customClass="View">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -198,27 +198,33 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="bgu-XY-XKJ">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCollectionViewCell" id="bgu-XY-XKJ" userLabel="PhotoCollectionViewCell" customClass="PhotoCollectionViewCell" customModule="MemeGenerator" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="TopLeft" semanticContentAttribute="forceLeftToRight" insetsLayoutMarginsFromSafeArea="NO" id="L80-Ti-o4i">
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" id="L80-Ti-o4i">
                                             <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bAt-Vz-1ax">
-                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bAt-Vz-1ax">
+                                                    <rect key="frame" x="1" y="1" width="118" height="118"/>
                                                 </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="bAt-Vz-1ax" secondAttribute="trailing" constant="1" id="1RD-tn-gvk"/>
+                                                <constraint firstItem="bAt-Vz-1ax" firstAttribute="leading" secondItem="L80-Ti-o4i" secondAttribute="leading" constant="1" id="lU5-Sr-b6y"/>
+                                                <constraint firstItem="bAt-Vz-1ax" firstAttribute="top" secondItem="L80-Ti-o4i" secondAttribute="top" constant="1" id="qAi-No-Czz"/>
+                                                <constraint firstAttribute="bottom" secondItem="bAt-Vz-1ax" secondAttribute="bottom" constant="1" id="vVF-CY-diQ"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="120" height="120"/>
                                         <connections>
+                                            <outlet property="image" destination="bAt-Vz-1ax" id="7TC-OW-uxk"/>
                                             <segue destination="8jG-Mh-wRd" kind="show" id="9My-JH-R75"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="4IU-Xr-y09" id="Sqm-8Z-ACi"/>
+                                    <outlet property="dataSource" destination="4IU-Xr-y09" id="xsh-cR-yId"/>
                                     <outlet property="delegate" destination="4IU-Xr-y09" id="gQO-DU-0vm"/>
                                 </connections>
                             </collectionView>
@@ -243,12 +249,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gjt-5S-vkd">
-                                <rect key="frame" x="0.0" y="150" width="414" height="487"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gjt-5S-vkd">
+                                <rect key="frame" x="1" y="150" width="412" height="487"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <constraints>
+                            <constraint firstItem="Tw6-27-8Dv" firstAttribute="trailing" secondItem="gjt-5S-vkd" secondAttribute="trailing" constant="1" id="OAf-WP-wbi"/>
+                            <constraint firstItem="gjt-5S-vkd" firstAttribute="leading" secondItem="Tw6-27-8Dv" secondAttribute="leading" constant="1" id="u27-hb-7H8"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Tw6-27-8Dv"/>
                     </view>
                     <toolbarItems>
@@ -349,7 +358,7 @@
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="meme2" translatesAutoresizingMaskIntoConstraints="NO" id="g6c-cW-XdZ">
-                                <rect key="frame" x="254" y="445.49999999999994" width="150" height="150.00000000000017"/>
+                                <rect key="frame" x="254" y="445.5" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="7IJ-h5-vWF"/>
                                     <constraint firstAttribute="height" constant="150" id="Ku4-9w-0ku"/>
