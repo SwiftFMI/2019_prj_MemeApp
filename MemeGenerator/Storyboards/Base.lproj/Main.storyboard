@@ -108,10 +108,10 @@
             </objects>
             <point key="canvasLocation" x="3728.985507246377" y="-160.04464285714286"/>
         </scene>
-        <!--EditMeme-->
+        <!--CreateMeme-->
         <scene sceneID="nnv-Hl-azj">
             <objects>
-                <viewController storyboardIdentifier="MemeEditViewController" title="EditMeme" id="RcX-Vr-nNi" customClass="MemeEditViewController" customModule="MemeGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MemeEditViewController" id="RcX-Vr-nNi" customClass="MemeEditViewController" customModule="MemeGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3A0-rz-0ZG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -372,7 +372,7 @@
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="meme2" translatesAutoresizingMaskIntoConstraints="NO" id="g6c-cW-XdZ">
-                                <rect key="frame" x="215" y="403.66666666666669" width="150" height="150.00000000000006"/>
+                                <rect key="frame" x="215" y="403.66666666666669" width="150" height="150.00000000000017"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="7IJ-h5-vWF"/>
                                     <constraint firstAttribute="height" constant="150" id="Ku4-9w-0ku"/>
