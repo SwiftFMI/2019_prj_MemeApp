@@ -10,13 +10,19 @@ import UIKit
 
 class PhotoPreviewFullViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    @IBAction func dismissFullScreen(_ sender: Any) {
+
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     var collectionView: UICollectionView!
     var images = [UIImage]()
     var passedContentOffset = IndexPath()
 
+    @IBOutlet weak var exitButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       
         self.view.backgroundColor = UIColor.black
     
         let layout = UICollectionViewFlowLayout()
@@ -35,6 +41,8 @@ class PhotoPreviewFullViewController: UIViewController, UICollectionViewDelegate
         self.view.addSubview(collectionView)
         
         collectionView.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.RawValue(UInt8(UIView.AutoresizingMask.flexibleWidth.rawValue) | UInt8(UIView.AutoresizingMask.flexibleHeight.rawValue)))
+        view.bringSubviewToFront(exitButton)
+               
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

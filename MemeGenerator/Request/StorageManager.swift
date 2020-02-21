@@ -131,7 +131,8 @@ final class StorageManager: NSObject {
             }
             completion(false)
         })
-        
+    }
+    
     func getMemes(completion: @escaping () -> ()) {
         
         memesRef.listAll { (result, error) in

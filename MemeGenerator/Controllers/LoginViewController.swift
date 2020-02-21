@@ -148,6 +148,9 @@ class LoginViewController: UIViewController {
                             })
                         }
                     }
+                    StorageManager.shared.getMemes {
+                        
+                    }
                 } else {
                     self.errorLabel.isHidden = false
                     self.indicator.stopAnimating()

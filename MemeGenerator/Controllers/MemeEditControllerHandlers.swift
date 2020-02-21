@@ -119,7 +119,7 @@ extension MemeEditViewController {
     func saveMemeInFirebase(memedImage: UIImage) {
         let uid = UserDefaults.standard.string(forKey: "UID")
         let storageRef = Storage.storage().reference()
-        let memeRef = storageRef.child("Memes/\(uid!)/\(NSUUID().uuidString).png")
+        let memeRef = storageRef.child("Memes/\(NSUUID().uuidString).png")
         print("Memes/\(uid!)/\(NSUUID().uuidString).png")
         
         let imageData = memedImage.pngData()

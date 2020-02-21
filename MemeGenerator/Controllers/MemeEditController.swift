@@ -36,6 +36,10 @@ class MemeEditViewController: UIViewController, UIDropInteractionDelegate, UINav
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let imageURL = StorageManager.shared.selectedTemplate {
+            imageView.kf.setImage(with: imageURL)
+        }
+        
         fontButton.isHidden = true
         topTextField.isHidden = true
         bottomTextField.isHidden = true

@@ -23,6 +23,15 @@ class TemplatesViewController: UIViewController {
         addButton.layer.cornerRadius = 10
         setupBackground()
         
+        if StorageManager.shared.images.isEmpty {
+            StorageManager.shared.getTemplates {
+                StorageManager.shared.getUsersTemplates {
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -127,7 +136,10 @@ extension TemplatesViewController: UICollectionViewDelegate, UICollectionViewDat
              stringURL = StorageManager.shared.images[indexPath.row]
         }
         StorageManager.shared.selectedTemplate = URL(string: stringURL)
-       
+        
+        let VC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MemeEditViewController") as! MemeEditViewController
+        VC.modalPresentationStyle = .fullScreen
+        self.present(VC, animated: true, completion: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
