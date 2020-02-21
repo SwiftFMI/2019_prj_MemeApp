@@ -26,12 +26,12 @@ class PhotoPreviewFullViewController: UIViewController, UICollectionViewDelegate
         layout.scrollDirection = .horizontal
         
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-        collectionView.delegate=self
-        collectionView.dataSource=self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         collectionView.register(PhotoPreviewFullViewCell.self, forCellWithReuseIdentifier: "PhotoPreviewFullViewCell")
         collectionView.isPagingEnabled = true
         collectionView.scrollToItem(at: passedContentOffset, at: .left, animated: true)
-
+        
         self.view.addSubview(collectionView)
         
         collectionView.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.RawValue(UInt8(UIView.AutoresizingMask.flexibleWidth.rawValue) | UInt8(UIView.AutoresizingMask.flexibleHeight.rawValue)))

@@ -33,7 +33,11 @@ class PhotoPreviewFullViewCell: UICollectionViewCell, UIScrollViewDelegate {
         self.addSubview(scrollImg)
         
         imgView = UIImageView()
-        imgView.image = UIImage(named: "user")
+        imgView.image = UIImage(named: "photo")
+        imgView.isUserInteractionEnabled = true
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(recognizer:)))
+        imgView.addGestureRecognizer(pinchGesture)
+        
         scrollImg.addSubview(imgView!)
         imgView.contentMode = .scaleAspectFit
     }
@@ -44,6 +48,11 @@ class PhotoPreviewFullViewCell: UICollectionViewCell, UIScrollViewDelegate {
         } else {
             scrollImg.setZoomScale(1, animated: true)
         }
+    }
+    
+    @objc func handlePinchGesture(recognizer: UIPinchGestureRecognizer) {
+        recognizer.view?.transform = (recognizer.view?.transform.scaledBy(x: recognizer.scale, y: recognizer.scale))!
+        recognizer.scale = 1.0
     }
     
     func zoomRectForScale(scale: CGFloat, center: CGPoint) -> CGRect {
