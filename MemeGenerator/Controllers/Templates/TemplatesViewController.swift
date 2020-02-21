@@ -23,10 +23,6 @@ class TemplatesViewController: UIViewController {
         addButton.layer.cornerRadius = 10
         setupBackground()
         
-        guard let uid = UserDefaults.standard.string(forKey: "UID") else {
-            return
-        }
-        FirebaseAuthManager.shared.setUserInfo(uid: uid)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,23 +32,21 @@ class TemplatesViewController: UIViewController {
         addButton.center.x -= 20
         searchBar.alpha = 0
         addButton.alpha = 0
-      
+        
         UIView.animate(withDuration: 0.5, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
             self.addButton.center.x += 20
             self.addButton.alpha = 1
         }, completion: nil)
         
         UIView.animate(withDuration: 0.5, delay: 0.1, options: [.transitionCurlDown], animations: {
-                 self.searchBar.alpha = 1
-             }, completion: nil)
+            self.searchBar.alpha = 1
+        }, completion: nil)
         
         collectionView.reloadData()
     }
     
     @IBAction func addButtonPressed(_ sender: Any) {
-        
         showImagePickerControllerActionSheet()
-        
     }
     
     private func setupBackground() {
@@ -63,6 +57,30 @@ class TemplatesViewController: UIViewController {
         gradient.colors = [ #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1).cgColor , #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1).cgColor, #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1).cgColor]
         view.layer.insertSublayer(gradient, at: 0)
         collectionView.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+    }
+    
+    func updateTemplates(url imageURL: URL, name: String) {
+        let activity = UIActivityIndicatorView(frame: self.view.frame)
+        activity.startAnimating()
+        activity.style = .large
+        activity.frame.size = CGSize(width: 200, height: 200)
+        activity.center = view.center
+        view.addSubview(activity)
+        StorageManager.shared.uploadTemplates(url: imageURL.absoluteURL, name: name , complition: {
+            success in
+            if success, !self.isSearching {
+                let indexPath = IndexPath(row: StorageManager.shared.images.count - 1, section: 0 )
+                self.collectionView.insertItems(at: [indexPath])
+                self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+            } else {
+                let alert  = UIAlertController(title:  "Unsuccessful operation!", message: "Check your network connection.", preferredStyle: .actionSheet)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alert.addAction(okAction)
+                self.present(alert,animated: true)
+            }
+            activity.stopAnimating()
+            activity.removeFromSuperview()
+        })
     }
     
 }
@@ -99,6 +117,17 @@ extension TemplatesViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width:( collectionView.frame.width - 5 ) / 2, height: (collectionView.frame.height - 10)/4)
         
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var stringURL = String()
+        if isSearching, !StorageManager.shared.searchedImages.isEmpty {
+             stringURL = StorageManager.shared.searchedImages[indexPath.row]
+        } else {
+             stringURL = StorageManager.shared.images[indexPath.row]
+        }
+        StorageManager.shared.selectedTemplate = URL(string: stringURL)
+       
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -147,18 +176,15 @@ extension TemplatesViewController : UIImagePickerControllerDelegate, UINavigatio
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        guard  let imageURL = info[.imageURL] as? NSURL else {
+        guard  let imageURL = info[.imageURL] as? NSURL, let localURL = imageURL.absoluteURL else {
             return
         }
         
-        StorageManager.shared.uploadImage( url: imageURL.absoluteURL, complition: { success in
-            if success, !self.isSearching {
-                let indexPath = IndexPath(row: StorageManager.shared.images.count - 1, section: 0 )
-                self.collectionView.insertItems(at: [indexPath])
-                self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
-            }
-            picker.dismiss(animated: true)
-        })
+        picker.dismiss(animated: true)
+        editTemplateName(completion: { name  in
+            self.updateTemplates(url: localURL, name: name )
+            })
+  
     }
 }
 
@@ -189,5 +215,27 @@ extension TemplatesViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
+    }
+    
+    func editTemplateName(completion: @escaping (_ url: String)-> ()) {
+        var textField: UITextField?
+        
+        let alertController = UIAlertController (title: "Template name", message:"" , preferredStyle: .alert)
+        let action = UIAlertAction(title: "Save as", style: .default, handler: { (action) -> Void in
+            
+            if let name = textField?.text , !name.isEmpty{
+                print(name)
+                completion(name)
+            }
+        })
+        
+        alertController.addTextField {
+            (name) -> Void in
+            textField = name
+        }
+        
+        alertController.addAction(action)
+        present(alertController, animated: true)
+        
     }
 }
