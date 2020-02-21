@@ -17,15 +17,15 @@ final class FirebaseAuthManager: NSObject {
     let databaseRef = Database.database().reference()
     var currentUser: User?
     
-    func login(email: String?, password: String? , completion: @escaping (_ success: Bool, _ error: Error?) -> () ){
+    func login(email: String?, password: String? ,username: String?, completion: @escaping (_ success: Bool, _ error: Error?) -> () ){
         guard let email = email, !email.isEmpty else {
-                  completion(false, AuthError.noEmailAddress)
-                  return
-              }
-              guard let password = password, !password.isEmpty else {
-                  completion(false, AuthError.noPassword)
-                  return
-              }
+            completion(false, AuthError.noEmailAddress)
+            return
+        }
+        guard let password = password, !password.isEmpty else {
+            completion(false, AuthError.noPassword)
+            return
+        }
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error != nil {
                 completion(false, error)
@@ -38,20 +38,21 @@ final class FirebaseAuthManager: NSObject {
             
             UserDefaults.standard.set(true, forKey: "isLoggedIn")
             UserDefaults.standard.set(user.user.uid, forKey: "UID")
+            self.currentUser = User(username: username ?? "" , uid: user.user.uid, profileImage: nil)
             UserDefaults.standard.synchronize()
             completion(true, nil)
         }
     }
     
     func singUp(email: String?, password: String? , username: String? , completion: @escaping (_ success: Bool, _ error: Error?) -> () ) {
-            guard let email = email, !email.isEmpty else {
-                     completion(false, AuthError.noEmailAddress)
-                     return
-                 }
-                 guard let password = password, !password.isEmpty else {
-                     completion(false, AuthError.noPassword)
-                     return
-                 }
+        guard let email = email, !email.isEmpty else {
+            completion(false, AuthError.noEmailAddress)
+            return
+        }
+        guard let password = password, !password.isEmpty else {
+            completion(false, AuthError.noPassword)
+            return
+        }
         guard let username = username , !username.isEmpty else {
             completion(false, AuthError.noUsername)
             return
@@ -62,34 +63,70 @@ final class FirebaseAuthManager: NSObject {
                 completion(false, AuthError.noUser)
                 return
             }
-
+            
             self.currentUser = User(username: username, uid: user.user.uid)
             self.addUsertoDatabase(self.currentUser!)
-            self.login(email: email, password: password) { (success, error) in
+            self.login(email: email, password: password, username: username) { (success, error) in
                 completion(success,error)
             }
         }
     }
     
     func addUsertoDatabase(_ user: User) {
+        
         let post = ["uid": user.uid,
                     "username":user.username,
+                    "profileImage": (user.profileImage?.absoluteString) ?? "",
         ]
         databaseRef.child("users").child(user.uid).setValue(post)
     }
     
-    func setUserInfo(uid: String, completion:  (() -> ())? = nil) {
+    func setUserInfo(uid: String, completion: @escaping () -> ()) {
         databaseRef.child("users").child("\(uid)").observeSingleEvent(of: .value, with: {
             snapshot in
-        
             let value = snapshot.value as? NSDictionary
             let username = value?["username"] as? String ?? ""
-            self.currentUser = User(username: username, uid: uid)
-            completion?()
+            let profileImage = value?["profileImage"] as? String
+            self.currentUser = User(username: username, uid: uid, profileImage: URL(string: profileImage ?? ""))
+            completion()
         })
+    }
+    
+    func changeProfileImage(url: URL, completion: ((_ success: Bool) -> ())? = nil) {
+        guard let user = FirebaseAuthManager.shared.currentUser else {
+            completion?(false)
+            return
+        }
+        let post = ["uid": user.uid,
+                    "username":user.username,
+                    "profileImage": url.absoluteString,
+        ]
+        databaseRef.child("users").child(user.uid).setValue(post)
+        FirebaseAuthManager.shared.currentUser?.profileImage = url
+        completion?(true)
         
     }
-
+    
+    func changeUsername(newUsername: String) {
+        guard let user = FirebaseAuthManager.shared.currentUser else {
+              return
+          }
+        var post: [String: String] = [:]
+        if  let profileURL = user.profileImage {
+             post = ["uid": user.uid,
+                        "username": newUsername,
+                        "profileImage": profileURL.absoluteString,
+            ]
+        } else {
+            post = ["uid": user.uid,
+                                "username": newUsername,
+                                "profileImage": "",
+                    ]
+        }
+         
+          databaseRef.child("users").child(user.uid).setValue(post)
+        FirebaseAuthManager.shared.currentUser?.username = newUsername
+    }
 }
 
 enum AuthError: Error {

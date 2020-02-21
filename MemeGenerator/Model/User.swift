@@ -12,5 +12,6 @@ struct User {
     
     var username: String
     var uid: String
+    var profileImage: URL?
     
 }

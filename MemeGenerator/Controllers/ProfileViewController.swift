@@ -10,23 +10,71 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    
-    
-    @IBOutlet weak var logoutButton: UIButton!
-    
-    @IBOutlet weak var posts: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var changeUsernameButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var stack: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         logoutButton.layer.cornerRadius = 10
+        usernameTextField.isHidden = true
+        usernameTextField.delegate = self
         setupBackground()
         
-            guard let user = FirebaseAuthManager.shared.currentUser else {
-                return
+        if let uid = UserDefaults.standard.string(forKey: "UID") {
+            FirebaseAuthManager.shared.setUserInfo(uid: uid) {
+                guard let user = FirebaseAuthManager.shared.currentUser else {
+                    return
+                }
+                let attrString = NSMutableAttributedString(string: "username: \(user.username) ", attributes: [
+                    .font: UIFont(name: "HelveticaNeue-Medium", size: 20.0)!,
+                    .foregroundColor: UIColor.black,
+                    .kern: -0.09
+                ])
+                attrString.addAttributes([
+                    .font: UIFont(name: "HelveticaNeue-Bold", size: 18.0)!,
+                    .foregroundColor: UIColor.black
+                ], range: NSRange(location: 0, length: 8))
+                self.usernameLabel.attributedText = attrString
+
+                self.profileImage.kf.setImage(with: user.profileImage)
             }
-            self.usernameLabel.text = "USER: \(user.username)"
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        logoutButton.center.x -= 50
+        stack.center.x -= 50
+        profileImage.alpha = 0
+        
+        UIView.animate(withDuration: 0.6, delay: 0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
+            self.stack.center.x += 50
+            self.logoutButton.center.x += 50
+        }, completion: nil)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        titleLabel.alpha = 0
+        cameraButton.alpha = 0
+        UIView.transition(with: titleLabel, duration: 0.7, options: [.transitionFlipFromLeft], animations: {
+            self.titleLabel.alpha = 1
+            self.profileImage.alpha = 1
+            self.cameraButton.alpha = 1
+        }, completion: nil)
+    }
+    
+    @IBAction func changeUsernameButtonPressed(_ sender: Any) {
+        usernameTextField.isHidden = false
+        usernameTextField.text = ""
+        usernameTextField.becomeFirstResponder()
     }
     
     @IBAction func logoutButtonPressed(_ sender: Any) {
@@ -43,6 +91,10 @@ class ProfileViewController: UIViewController {
         
     }
     
+    @IBAction func cameraButtonPressed(_ sender: Any) {
+        showImagePickerControllerActionSheet()
+    }
+    
     private func setupBackground() {
         let gradient = CAGradientLayer()
         gradient.frame.size = view.frame.size
@@ -52,4 +104,95 @@ class ProfileViewController: UIViewController {
         view.layer.insertSublayer(gradient, at: 0)
     }
     
+}
+
+extension ProfileViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func showImagePickerControllerActionSheet() {
+        let alert  = UIAlertController(title:  "Choose your image ", message: nil, preferredStyle: .actionSheet)
+        let photoLibraryAction = UIAlertAction(title: "Choose from library", style: .default) { (action) in
+            self.showImagePickerController(sourceType: .photoLibrary)
+        }
+        let cameraAction = UIAlertAction(title: "Take from Camera", style: .default) { (action) in
+            self.showImagePickerController(sourceType: .camera)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(photoLibraryAction)
+        alert.addAction(cameraAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true)
+    }
+    
+    func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        imagePickerController.sourceType = sourceType
+        present(imagePickerController,animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        guard  let imageURL = info[.imageURL] as? NSURL else {
+            return
+        }
+        
+        StorageManager.shared.changeProfileImage(url: imageURL as URL , completion: {
+            success in
+            
+            if success {
+                guard let user = FirebaseAuthManager.shared.currentUser, let imageURLPath = user.profileImage else {
+                    return
+                }
+                FirebaseAuthManager.shared.changeProfileImage(url: imageURLPath, completion: nil)
+                 self.profileImage.kf.setImage(with: user.profileImage)
+            }
+        })
+        picker.dismiss(animated: true)
+    }
+
+}
+
+extension ProfileViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        usernameTextField.isHidden = true
+        guard let username = usernameTextField.text else {
+           let attrString = NSMutableAttributedString(string: "username:", attributes: [
+               .font: UIFont(name: "HelveticaNeue-Medium", size: 20.0)!,
+               .foregroundColor: UIColor.black,
+               .kern: -0.09
+           ])
+           self.usernameLabel.attributedText = attrString
+            return
+        }
+        if username.isEmpty {
+            let alert = UIAlertController(title: "", message: "Please enter username", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
+                
+        } else {
+            let attrString = NSMutableAttributedString(string: "username: \(username)", attributes: [
+                .font: UIFont(name: "HelveticaNeue-Medium", size: 20.0)!,
+                .foregroundColor: UIColor.black,
+                .kern: -0.09
+            ])
+            attrString.addAttributes([
+                .font: UIFont(name: "HelveticaNeue-Bold", size: 18.0)!,
+                .foregroundColor: UIColor.black
+            ], range: NSRange(location: 0, length: 8))
+            self.usernameLabel.attributedText = attrString
+            FirebaseAuthManager.shared.changeUsername(newUsername: username)
+        }
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+
 }

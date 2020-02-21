@@ -134,9 +134,12 @@ class LoginViewController: UIViewController {
         password.layer.borderWidth = 0
         emailAddress.layer.borderWidth = 0
         username.layer.borderWidth = 0
+        emailAddress.resignFirstResponder()
+        username.resignFirstResponder()
+        password.resignFirstResponder()
         
         if logControll.selectedSegmentIndex == 0 {
-            FirebaseAuthManager.shared.login(email: emailAddress.text, password: password.text, completion: {success,error in
+            FirebaseAuthManager.shared.login(email: emailAddress.text, password: password.text, username: "" , completion: {success,error in
                 if success {
                     StorageManager.shared.getTemplates {
                         StorageManager.shared.getUsersTemplates {
