@@ -20,6 +20,8 @@ final class StorageManager: NSObject {
     var images: [String] = []
     var searchedImages: [String] = []
     
+    var selectedTemplate: URL?
+    
     func getTemplates(completion: @escaping () -> () ) {
         
         templatesRef.listAll { (result, error) in

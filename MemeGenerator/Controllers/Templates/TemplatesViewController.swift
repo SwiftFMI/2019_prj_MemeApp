@@ -59,6 +59,30 @@ class TemplatesViewController: UIViewController {
         collectionView.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
     }
     
+    func updateTemplates(url imageURL: URL, name: String) {
+        let activity = UIActivityIndicatorView(frame: self.view.frame)
+        activity.startAnimating()
+        activity.style = .large
+        activity.frame.size = CGSize(width: 200, height: 200)
+        activity.center = view.center
+        view.addSubview(activity)
+        StorageManager.shared.uploadTemplates(url: imageURL.absoluteURL, name: name , complition: {
+            success in
+            if success, !self.isSearching {
+                let indexPath = IndexPath(row: StorageManager.shared.images.count - 1, section: 0 )
+                self.collectionView.insertItems(at: [indexPath])
+                self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+            } else {
+                let alert  = UIAlertController(title:  "Unsuccessful operation!", message: "Check your network connection.", preferredStyle: .actionSheet)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alert.addAction(okAction)
+                self.present(alert,animated: true)
+            }
+            activity.stopAnimating()
+            activity.removeFromSuperview()
+        })
+    }
+    
 }
 
 extension TemplatesViewController: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
@@ -95,36 +119,23 @@ extension TemplatesViewController: UICollectionViewDelegate, UICollectionViewDat
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var stringURL = String()
+        if isSearching, !StorageManager.shared.searchedImages.isEmpty {
+             stringURL = StorageManager.shared.searchedImages[indexPath.row]
+        } else {
+             stringURL = StorageManager.shared.images[indexPath.row]
+        }
+        StorageManager.shared.selectedTemplate = URL(string: stringURL)
+       
+    }
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         cell.alpha = 0
         
         UIView.animate( withDuration: 0.4, delay: 0.02 * Double(indexPath.row),
                         animations: {
                             cell.alpha = 1
-        })
-    }
-    
-    func updateTemplates(url imageURL: URL, name: String) {
-        let activity = UIActivityIndicatorView(frame: self.view.frame)
-        activity.startAnimating()
-        activity.style = .large
-        activity.frame.size = CGSize(width: 200, height: 200)
-        activity.center = view.center
-        view.addSubview(activity)
-        StorageManager.shared.uploadTemplates(url: imageURL.absoluteURL, name: name , complition: {
-            success in
-            if success, !self.isSearching {
-                let indexPath = IndexPath(row: StorageManager.shared.images.count - 1, section: 0 )
-                self.collectionView.insertItems(at: [indexPath])
-                self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
-            } else {
-                let alert  = UIAlertController(title:  "Unsuccessful operation!", message: "Check your network connection.", preferredStyle: .actionSheet)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alert.addAction(okAction)
-                self.present(alert,animated: true)
-            }
-            activity.stopAnimating()
-            activity.removeFromSuperview()
         })
     }
 }
