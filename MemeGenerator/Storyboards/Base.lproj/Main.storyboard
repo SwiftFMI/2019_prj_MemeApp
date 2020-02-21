@@ -135,7 +135,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lE-WY-t7W">
-                                <rect key="frame" x="315" y="738" width="40" height="40"/>
+                                <rect key="frame" x="325.66666666666669" y="738" width="29.333333333333314" height="40"/>
                                 <state key="normal" image="camera" catalog="system"/>
                                 <connections>
                                     <action selector="cameraButtonAction:" destination="RcX-Vr-nNi" eventType="touchUpInside" id="SLk-SZ-Aqp"/>
@@ -149,8 +149,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cfV-vN-KFV">
-                                <rect key="frame" x="315" y="44" width="40" height="40"/>
-                                <state key="normal" image="Text"/>
+                                <rect key="frame" x="325.66666666666669" y="44" width="29.333333333333314" height="40"/>
+                                <state key="normal" image="square.and.pencil" catalog="system"/>
                                 <connections>
                                     <action selector="addTextAction:" destination="RcX-Vr-nNi" eventType="touchUpInside" id="EHt-bA-Qvh"/>
                                 </connections>
@@ -172,13 +172,71 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z0C-9R-fOW">
-                                <rect key="frame" x="258" y="738" width="49" height="40"/>
+                                <rect key="frame" x="268.66666666666669" y="738" width="49" height="40"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                 <state key="normal" title="Album"/>
                                 <connections>
                                     <action selector="libraryButtonAction:" destination="RcX-Vr-nNi" eventType="touchUpInside" id="yK6-uc-pjU"/>
                                 </connections>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xsC-Oq-vPT">
+                                <rect key="frame" x="287.66666666666669" y="44" width="30" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUK-ke-P9o">
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="GqZ-LP-XgL"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" image="textformat.alt" catalog="system"/>
+                                        <connections>
+                                            <action selector="changeFont:" destination="RcX-Vr-nNi" eventType="touchUpInside" id="527-kb-tXv"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmQ-aI-bhm">
+                                        <rect key="frame" x="0.0" y="40" width="30" height="0.0"/>
+                                        <state key="normal" title="F1"/>
+                                        <connections>
+                                            <action selector="chooseFont:" destination="RcX-Vr-nNi" eventType="touchUpInside" id="3Ql-te-PbE"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mdy-xr-FxV">
+                                        <rect key="frame" x="0.0" y="40" width="30" height="0.0"/>
+                                        <state key="normal" title="F2"/>
+                                        <connections>
+                                            <action selector="chooseFont:" destination="RcX-Vr-nNi" eventType="touchUpInside" id="EOD-jg-zn6"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D09-m3-PcG">
+                                        <rect key="frame" x="0.0" y="40" width="30" height="0.0"/>
+                                        <state key="normal" title="F3"/>
+                                        <connections>
+                                            <action selector="chooseFont:" destination="RcX-Vr-nNi" eventType="touchUpInside" id="mGa-nE-y4V"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYy-qd-rBH">
+                                        <rect key="frame" x="0.0" y="40" width="30" height="0.0"/>
+                                        <state key="normal" title="F4"/>
+                                        <connections>
+                                            <action selector="chooseFont:" destination="RcX-Vr-nNi" eventType="touchUpInside" id="228-5g-xoy"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nO1-GF-ftF">
+                                        <rect key="frame" x="0.0" y="40" width="30" height="0.0"/>
+                                        <state key="normal" title="F5"/>
+                                        <connections>
+                                            <action selector="chooseFont:" destination="RcX-Vr-nNi" eventType="touchUpInside" id="WVY-XD-InC"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="nO1-GF-ftF" firstAttribute="top" secondItem="iYy-qd-rBH" secondAttribute="bottom" id="EDQ-YQ-Dj6"/>
+                                    <constraint firstItem="Mdy-xr-FxV" firstAttribute="top" secondItem="mmQ-aI-bhm" secondAttribute="bottom" id="KmR-yb-xNY"/>
+                                    <constraint firstItem="iYy-qd-rBH" firstAttribute="top" secondItem="D09-m3-PcG" secondAttribute="bottom" id="TG2-9Q-pQe"/>
+                                    <constraint firstItem="D09-m3-PcG" firstAttribute="top" secondItem="Mdy-xr-FxV" secondAttribute="bottom" id="U70-Ri-9O3"/>
+                                    <constraint firstItem="mmQ-aI-bhm" firstAttribute="top" secondItem="DUK-ke-P9o" secondAttribute="bottom" id="akl-aN-10u"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="cfV-vN-KFV" firstAttribute="top" secondItem="Lis-Ph-2dg" secondAttribute="top" id="0H9-oT-E9N"/>
@@ -199,13 +257,16 @@
                             <constraint firstItem="WEg-OC-TKt" firstAttribute="centerX" secondItem="RtM-ez-Sf0" secondAttribute="centerX" id="Rxn-jZ-wmB"/>
                             <constraint firstItem="Lis-Ph-2dg" firstAttribute="trailing" secondItem="cfV-vN-KFV" secondAttribute="trailing" constant="20" id="Tan-3U-F3D"/>
                             <constraint firstItem="yWx-zc-QIa" firstAttribute="top" secondItem="43H-DE-tdI" secondAttribute="top" id="WfI-IV-UZo"/>
+                            <constraint firstItem="cfV-vN-KFV" firstAttribute="bottom" secondItem="AcR-6T-LEj" secondAttribute="bottom" id="Wh4-I4-2MR"/>
                             <constraint firstItem="0lE-WY-t7W" firstAttribute="bottom" secondItem="z0C-9R-fOW" secondAttribute="bottom" id="WoN-Vk-YFH"/>
                             <constraint firstItem="Lis-Ph-2dg" firstAttribute="bottom" secondItem="43H-DE-tdI" secondAttribute="bottom" id="YDu-f3-G4T"/>
                             <constraint firstItem="WEg-OC-TKt" firstAttribute="leading" secondItem="Lis-Ph-2dg" secondAttribute="leading" constant="20" id="a0G-vn-czN"/>
                             <constraint firstAttribute="bottom" secondItem="RtM-ez-Sf0" secondAttribute="bottom" id="and-Me-S1K"/>
+                            <constraint firstItem="xsC-Oq-vPT" firstAttribute="top" secondItem="cfV-vN-KFV" secondAttribute="top" id="d2W-RN-PtI"/>
                             <constraint firstItem="0lE-WY-t7W" firstAttribute="top" secondItem="z0C-9R-fOW" secondAttribute="top" id="hFU-bl-Ljj"/>
                             <constraint firstItem="0lE-WY-t7W" firstAttribute="trailing" secondItem="cfV-vN-KFV" secondAttribute="trailing" id="hZ3-2c-MpP"/>
                             <constraint firstItem="yWx-zc-QIa" firstAttribute="bottom" secondItem="0lE-WY-t7W" secondAttribute="bottom" id="iHL-5l-urN"/>
+                            <constraint firstItem="xsC-Oq-vPT" firstAttribute="trailing" secondItem="z0C-9R-fOW" secondAttribute="trailing" id="iwA-4f-sif"/>
                             <constraint firstItem="yWx-zc-QIa" firstAttribute="bottom" secondItem="43H-DE-tdI" secondAttribute="bottom" id="ouw-F5-igQ"/>
                             <constraint firstItem="0lE-WY-t7W" firstAttribute="leading" secondItem="cfV-vN-KFV" secondAttribute="leading" id="ra9-in-ByF"/>
                             <constraint firstItem="yWx-zc-QIa" firstAttribute="leading" secondItem="43H-DE-tdI" secondAttribute="trailing" constant="8" id="xZc-nU-8ZN"/>
@@ -219,6 +280,7 @@
                         <outlet property="bottomTextField" destination="Mo9-1X-Lpq" id="AgF-Cg-tKN"/>
                         <outlet property="cameraButton" destination="0lE-WY-t7W" id="wiV-YR-jDl"/>
                         <outlet property="exitButton" destination="AcR-6T-LEj" id="6yA-nT-HIl"/>
+                        <outlet property="fontButton" destination="DUK-ke-P9o" id="CRf-cj-84v"/>
                         <outlet property="imageView" destination="RtM-ez-Sf0" id="umL-YF-aFP"/>
                         <outlet property="navBar" destination="Vpd-aj-rot" id="IJ4-Fq-tvq"/>
                         <outlet property="photoLibraryButton" destination="z0C-9R-fOW" id="9B5-Vw-sAm"/>
@@ -226,6 +288,11 @@
                         <outlet property="shareButton" destination="yWx-zc-QIa" id="xUJ-i7-pm1"/>
                         <outlet property="textButton" destination="cfV-vN-KFV" id="s6V-dN-04E"/>
                         <outlet property="topTextField" destination="WEg-OC-TKt" id="TfZ-Lj-Mma"/>
+                        <outletCollection property="allFontButtons" destination="mmQ-aI-bhm" collectionClass="NSMutableArray" id="3XR-zp-Poe"/>
+                        <outletCollection property="allFontButtons" destination="Mdy-xr-FxV" collectionClass="NSMutableArray" id="fKK-rk-oU2"/>
+                        <outletCollection property="allFontButtons" destination="D09-m3-PcG" collectionClass="NSMutableArray" id="Axd-7R-K7t"/>
+                        <outletCollection property="allFontButtons" destination="iYy-qd-rBH" collectionClass="NSMutableArray" id="UVG-BU-DN6"/>
+                        <outletCollection property="allFontButtons" destination="nO1-GF-ftF" collectionClass="NSMutableArray" id="7Cd-8i-dTs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ebw-oS-Q3I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -372,7 +439,7 @@
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="meme2" translatesAutoresizingMaskIntoConstraints="NO" id="g6c-cW-XdZ">
-                                <rect key="frame" x="215" y="403.66666666666669" width="150" height="150.00000000000017"/>
+                                <rect key="frame" x="215" y="403.66666666666669" width="150" height="150.00000000000006"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="7IJ-h5-vWF"/>
                                     <constraint firstAttribute="height" constant="150" id="Ku4-9w-0ku"/>
@@ -462,7 +529,6 @@
     <resources>
         <image name="Close" width="40" height="40"/>
         <image name="Save" width="40" height="40"/>
-        <image name="Text" width="40" height="40"/>
         <image name="camera" catalog="system" width="64" height="48"/>
         <image name="folder" catalog="system" width="64" height="46"/>
         <image name="meme1" width="512" height="502"/>
@@ -470,5 +536,7 @@
         <image name="pencil" catalog="system" width="64" height="56"/>
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
+        <image name="square.and.pencil" catalog="system" width="64" height="58"/>
+        <image name="textformat.alt" catalog="system" width="64" height="40"/>
     </resources>
 </document>

@@ -12,6 +12,8 @@ class MemeEditViewController: UIViewController, UIDropInteractionDelegate, UINav
     
     @IBOutlet weak var exitButton: UIButton!
     @IBOutlet weak var textButton: UIButton!
+    @IBOutlet weak var fontButton: UIButton!
+    @IBOutlet var allFontButtons: [UIButton]!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var photoLibraryButton: UIButton!
@@ -34,6 +36,7 @@ class MemeEditViewController: UIViewController, UIDropInteractionDelegate, UINav
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fontButton.isHidden = true
         topTextField.isHidden = true
         bottomTextField.isHidden = true
         
@@ -61,10 +64,53 @@ class MemeEditViewController: UIViewController, UIDropInteractionDelegate, UINav
     @IBAction func addTextAction(_ sender: Any) {
         topTextField.isHidden = !topTextField.isHidden
         bottomTextField.isHidden = topTextField.isHidden
+        fontButton.isHidden = topTextField.isHidden
         
         // listen for keyboard events
         subscribeToKeyboardNotifications()
     }
+    
+    @IBAction func changeFont(_ sender: Any) {
+        allFontButtons.forEach{ (button) in
+            UIView.animate(withDuration: 0.3, animations: {
+                button.isHidden = !button.isHidden
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
+    enum Fonts: String {
+        case f1 = "F1"
+        case f2 = "F2"
+        case f3 = "F3"
+        case f4 = "F4"
+        case f5 = "F5"
+    }
+    
+    @IBAction func chooseFont(_ sender: UIButton) {
+        guard let title = sender.currentTitle, let font = Fonts(rawValue: title) else {
+            return
+        }
+        
+        switch font {
+        case .f1:
+            topTextField.font = UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)
+            bottomTextField.font = UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)
+        case .f2:
+            topTextField.font = UIFont(name: "Copperplate", size: 40)
+            bottomTextField.font = UIFont(name: "Copperplate", size: 40)
+        case .f3:
+            topTextField.font = UIFont(name: "GillSans-Italic", size: 40)
+            bottomTextField.font = UIFont(name: "GillSans-Italic", size: 40)
+        case .f4:
+            topTextField.font = UIFont(name: "MarkerFelt-Wide", size: 40)
+            bottomTextField.font = UIFont(name: "MarkerFelt-Wide", size: 40)
+        case .f5:
+            topTextField.font = UIFont(name: "TamilSangamMN-Bold", size: 40)
+            bottomTextField.font = UIFont(name: "TamilSangamMN-Bold", size: 40)
+        }
+    }
+    
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)

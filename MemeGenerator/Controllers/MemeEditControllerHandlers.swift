@@ -60,6 +60,7 @@ extension MemeEditViewController {
         saveButton.isHidden = !saveButton.isHidden
         photoLibraryButton.isHidden = !photoLibraryButton.isHidden
         cameraButton.isHidden = !cameraButton.isHidden
+        fontButton.isHidden = !fontButton.isHidden
     }
     
     // *** pick image *** //
