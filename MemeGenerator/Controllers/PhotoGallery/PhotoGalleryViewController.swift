@@ -75,20 +75,14 @@ class PhotoGalleryViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width:( collectionView.frame.width - 5 ) / 2, height: (collectionView.frame.height - 10)/4)
     }
-    
-    var indexPathToTransitionTo = IndexPath()
-        
+ 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "showFullView") {
             let vc: PhotoPreviewFullViewController = segue.destination as! PhotoPreviewFullViewController
-//            let indexPath = self.collectionView.indexPath(for: sender as! UICollectionViewCell)
-//            var indexPath: IndexPath?
             if let cell = sender as? UICollectionViewCell, let indexPath = collectionView.indexPath(for: cell) {
                 vc.passedContentOffset = indexPath
-                print("\(indexPath) -> row: \(indexPath.row)")
             }
             vc.images = self.images
-//            vc.passedContentOffset = indexPath!
         }
     }
 
