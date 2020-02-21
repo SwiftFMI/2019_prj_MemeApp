@@ -37,9 +37,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 }
             }
             
-            StorageManager.shared.getMemes {
+//            StorageManager.shared.getMemes {
                 
-            }
+//            }
         }
     }
     

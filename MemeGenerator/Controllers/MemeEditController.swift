@@ -123,10 +123,10 @@ class MemeEditViewController: UIViewController, UIDropInteractionDelegate, UINav
     }
     
     @IBAction func saveButtonAction(_ sender: Any) {
-        if topTextField.text == "TOP" {
+        if topTextField.text == "TOP" || topTextField.text == ""{
             topTextField.isHidden = true
         }
-        if bottomTextField.text == "BOTTOM" {
+        if bottomTextField.text == "BOTTOM" || bottomTextField.text == "" {
             bottomTextField.isHidden = true
         }
         

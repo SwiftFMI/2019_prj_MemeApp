@@ -19,10 +19,28 @@ class PhotoGalleryViewController: UIViewController, UICollectionViewDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getImages()
         setupBackground()
         
         collectionView.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.RawValue(UInt8(UIView.AutoresizingMask.flexibleWidth.rawValue) | UInt8(UIView.AutoresizingMask.flexibleHeight.rawValue)))
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        let activity = UIActivityIndicatorView(frame: self.view.frame)
+        activity.startAnimating()
+        activity.style = .large
+        activity.frame.size = CGSize(width: 200, height: 200)
+        activity.center = view.center
+        view.addSubview(activity)
+        activity.startAnimating()
+        
+        StorageManager.shared.getMemes {
+            self.collectionView.reloadData()
+            activity.stopAnimating()
+            activity.removeFromSuperview()
+            self.getImages()
+        }
         
     }
 
