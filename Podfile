@@ -11,5 +11,5 @@ target 'MemeGenerator' do
   pod 'Kingfisher'
 
   # Pods for MemeGenerator
-
+  pod 'FacebookShare'
 end
