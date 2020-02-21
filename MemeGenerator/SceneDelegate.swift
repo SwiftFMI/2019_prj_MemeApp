@@ -36,6 +36,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                    self.window?.makeKeyAndVisible()
                 }
             }
+            
+            StorageManager.shared.getMemes {
+                
+            }
         }
     }
     
