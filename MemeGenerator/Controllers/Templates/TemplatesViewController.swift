@@ -46,9 +46,7 @@ class TemplatesViewController: UIViewController {
     }
     
     @IBAction func addButtonPressed(_ sender: Any) {
-        
         showImagePickerControllerActionSheet()
-        
     }
     
     private func setupBackground() {
@@ -106,23 +104,28 @@ extension TemplatesViewController: UICollectionViewDelegate, UICollectionViewDat
         })
     }
     
-    func updateTemplates(url imageURL: URL) {
+    func updateTemplates(url imageURL: URL, name: String) {
         let activity = UIActivityIndicatorView(frame: self.view.frame)
         activity.startAnimating()
         activity.style = .large
         activity.frame.size = CGSize(width: 200, height: 200)
+        activity.center = view.center
         view.addSubview(activity)
-        StorageManager.shared.uploadTemplates(url: imageURL.absoluteURL, complition: {
-                   success in
-                   if success, !self.isSearching {
-                       let indexPath = IndexPath(row: StorageManager.shared.images.count - 1, section: 0 )
-                       self.collectionView.insertItems(at: [indexPath])
-                       self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
-                    activity.stopAnimating()
-                    activity.removeFromSuperview()
-                   }
-                   
-               })
+        StorageManager.shared.uploadTemplates(url: imageURL.absoluteURL, name: name , complition: {
+            success in
+            if success, !self.isSearching {
+                let indexPath = IndexPath(row: StorageManager.shared.images.count - 1, section: 0 )
+                self.collectionView.insertItems(at: [indexPath])
+                self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+            } else {
+                let alert  = UIAlertController(title:  "Unsuccessful operation!", message: "Check your network connection.", preferredStyle: .actionSheet)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alert.addAction(okAction)
+                self.present(alert,animated: true)
+            }
+            activity.stopAnimating()
+            activity.removeFromSuperview()
+        })
     }
 }
 
@@ -162,13 +165,15 @@ extension TemplatesViewController : UIImagePickerControllerDelegate, UINavigatio
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        guard  let imageURL = info[.imageURL] as? NSURL, let url = imageURL.absoluteURL else {
+        guard  let imageURL = info[.imageURL] as? NSURL, let localURL = imageURL.absoluteURL else {
             return
         }
         
         picker.dismiss(animated: true)
-        updateTemplates(url: url)
-       
+        editTemplateName(completion: { name  in
+            self.updateTemplates(url: localURL, name: name )
+            })
+  
     }
 }
 
@@ -199,5 +204,27 @@ extension TemplatesViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
+    }
+    
+    func editTemplateName(completion: @escaping (_ url: String)-> ()) {
+        var textField: UITextField?
+        
+        let alertController = UIAlertController (title: "Template name", message:"" , preferredStyle: .alert)
+        let action = UIAlertAction(title: "Save as", style: .default, handler: { (action) -> Void in
+            
+            if let name = textField?.text , !name.isEmpty{
+                print(name)
+                completion(name)
+            }
+        })
+        
+        alertController.addTextField {
+            (name) -> Void in
+            textField = name
+        }
+        
+        alertController.addAction(action)
+        present(alertController, animated: true)
+        
     }
 }

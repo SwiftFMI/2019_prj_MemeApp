@@ -84,9 +84,9 @@ final class StorageManager: NSObject {
         }
     }
     
-    func uploadTemplates( url: URL?, complition: @escaping (_ success: Bool) -> ()) {
+    func uploadTemplates( url: URL?, name: String,complition: @escaping (_ success: Bool) -> ()) {
         
-        uploadImage(refPath: "Templates/", url: url, complition: {
+        uploadImage(refPath: "Templates/", url: url, name: name ,complition: {
             success, url  in
             if success {
                 guard let url = url , let _ = UserDefaults.standard.string(forKey: "UID") else {
@@ -94,7 +94,6 @@ final class StorageManager: NSObject {
                     return
                     
                 }
-                
                 self.images.append(url.absoluteString)
                 complition(true)
                 return
@@ -114,7 +113,7 @@ final class StorageManager: NSObject {
             }
         }
         
-        self.uploadImage(refPath: "ProfileImages", url: url, complition: {
+        self.uploadImage(refPath: "ProfileImages", url: url, name: "", complition: {
             success, urlPath in
             if success {
                 guard let _ = FirebaseAuthManager.shared.currentUser else {
@@ -131,12 +130,12 @@ final class StorageManager: NSObject {
         
     }
     
-    private func uploadImage(refPath: String, url: URL?, complition: @escaping (_ success: Bool,_ url: URL?) -> ()) {
+    private func uploadImage(refPath: String, url: URL? ,name: String, complition: @escaping (_ success: Bool,_ url: URL?) -> ()) {
         guard let url = url , let uid = UserDefaults.standard.string(forKey: "UID") else {
             complition(false,nil)
             return
         }
-        let imageRef = storageRef.child(refPath).child(uid).child(url.lastPathComponent)
+        let imageRef = storageRef.child(refPath).child(uid).child(name)
         imageRef.putFile(from: url, metadata: nil, completion: { metadata, error in
             if let error = error  {
                 print(error)
@@ -165,7 +164,8 @@ final class StorageManager: NSObject {
     
     func searchTemplates(_ word: String ) {
         searchedImages = images.filter({
-            $0.contains(word)
+            let url = URL(string: $0)
+            return url?.lastPathComponent.contains(word) ?? false
         })
     }
     
