@@ -8,17 +8,22 @@
 
 import UIKit
 import Kingfisher
+import Photos
 
-let reuseIdentifier = "PhotoCollectionViewCell"
-
-class PhotoGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class PhotoGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
             
+    private var images = [UIImage]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
+        getImages()
         setupBackground()
+        
+        collectionView.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.RawValue(UInt8(UIView.AutoresizingMask.flexibleWidth.rawValue) | UInt8(UIView.AutoresizingMask.flexibleHeight.rawValue)))
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -26,6 +31,15 @@ class PhotoGalleryViewController: UIViewController, UICollectionViewDataSource, 
         self.collectionView.reloadData()
     }
 
+    func getImages() {
+        for item in StorageManager.shared.memes {
+            guard let url = URL(string: item) else { continue }
+            let data = try? Data(contentsOf: url)
+            let image = UIImage(data: data! as Data)!
+            images.append(image)
+        }
+    }
+    
     private func setupBackground() {
         let gradient = CAGradientLayer()
         gradient.frame.size = view.frame.size
@@ -59,6 +73,16 @@ class PhotoGalleryViewController: UIViewController, UICollectionViewDataSource, 
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width:( collectionView.frame.width - 5 ) / 2, height: (collectionView.frame.height - 10)/4)
-
     }
+        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "showFullView") {
+            let vc: PhotoPreviewFullViewController = segue.destination as! PhotoPreviewFullViewController
+            let indexPath = self.collectionView.indexPath(for: sender as! UICollectionViewCell)
+
+            vc.images = self.images
+            vc.passedContentOffset = indexPath!
+        }
+    }
+
 }

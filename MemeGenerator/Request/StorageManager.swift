@@ -98,7 +98,6 @@ final class StorageManager: NSObject {
                         guard let url = url else {
                             return
                         }
-                        print(url.absoluteString)
                         self.memes.append(url.absoluteString)
                         n -= 1
                         if n == 0 {
