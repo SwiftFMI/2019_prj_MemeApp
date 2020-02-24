@@ -116,12 +116,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RtM-ez-Sf0">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" highlighted="YES" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RtM-ez-Sf0">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
-                            <textField opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mo9-1X-Lpq">
-                                <rect key="frame" x="20" y="684" width="335" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textField opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mo9-1X-Lpq">
+                                <rect key="frame" x="20" y="778" width="335" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yWx-zc-QIa">
@@ -166,9 +166,9 @@
                                     <action selector="closeEditAction:" destination="RcX-Vr-nNi" eventType="touchUpInside" id="5io-Q6-YGO"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WEg-OC-TKt">
-                                <rect key="frame" x="20" y="104" width="335" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textField opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="TOP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WEg-OC-TKt">
+                                <rect key="frame" x="20" y="0.0" width="335" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z0C-9R-fOW">
@@ -237,15 +237,22 @@
                                     <constraint firstItem="mmQ-aI-bhm" firstAttribute="top" secondItem="DUK-ke-P9o" secondAttribute="bottom" id="akl-aN-10u"/>
                                 </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You didn't select any image for editing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rB-Ed-WWq">
+                                <rect key="frame" x="8.6666666666666572" y="399.66666666666669" width="357.66666666666674" height="23"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="19"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
+                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="cfV-vN-KFV" firstAttribute="top" secondItem="Lis-Ph-2dg" secondAttribute="top" id="0H9-oT-E9N"/>
                             <constraint firstItem="0lE-WY-t7W" firstAttribute="top" secondItem="43H-DE-tdI" secondAttribute="top" id="2AJ-Za-iR2"/>
                             <constraint firstItem="AcR-6T-LEj" firstAttribute="leading" secondItem="Lis-Ph-2dg" secondAttribute="leading" constant="20" id="9PW-fb-JTj"/>
                             <constraint firstItem="AcR-6T-LEj" firstAttribute="top" secondItem="Lis-Ph-2dg" secondAttribute="top" id="Anc-Ci-CrC"/>
                             <constraint firstItem="Lis-Ph-2dg" firstAttribute="trailing" secondItem="Mo9-1X-Lpq" secondAttribute="trailing" constant="20" id="C4d-1l-tDR"/>
+                            <constraint firstItem="1rB-Ed-WWq" firstAttribute="centerX" secondItem="Lis-Ph-2dg" secondAttribute="centerX" id="Fe5-Fu-KDg"/>
                             <constraint firstItem="RtM-ez-Sf0" firstAttribute="leading" secondItem="Lis-Ph-2dg" secondAttribute="leading" id="FeB-sU-EmU"/>
-                            <constraint firstItem="z0C-9R-fOW" firstAttribute="top" secondItem="Mo9-1X-Lpq" secondAttribute="bottom" constant="20" id="G4C-p2-8LK"/>
                             <constraint firstItem="RtM-ez-Sf0" firstAttribute="centerX" secondItem="Lis-Ph-2dg" secondAttribute="centerX" id="Hej-2O-iIb"/>
                             <constraint firstItem="RtM-ez-Sf0" firstAttribute="top" secondItem="3A0-rz-0ZG" secondAttribute="top" id="Hhb-nw-UNt"/>
                             <constraint firstItem="Lis-Ph-2dg" firstAttribute="trailing" secondItem="RtM-ez-Sf0" secondAttribute="trailing" id="IbV-IX-kNK"/>
@@ -253,15 +260,17 @@
                             <constraint firstItem="43H-DE-tdI" firstAttribute="leading" secondItem="Lis-Ph-2dg" secondAttribute="leading" constant="20" id="NAE-9u-W9E"/>
                             <constraint firstItem="z0C-9R-fOW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yWx-zc-QIa" secondAttribute="trailing" constant="8" symbolic="YES" id="NVM-U6-und"/>
                             <constraint firstItem="0lE-WY-t7W" firstAttribute="leading" secondItem="z0C-9R-fOW" secondAttribute="trailing" constant="8" symbolic="YES" id="Oec-bF-6uG"/>
-                            <constraint firstItem="Lis-Ph-2dg" firstAttribute="trailing" secondItem="WEg-OC-TKt" secondAttribute="trailing" constant="20" id="RrY-F2-bmu"/>
                             <constraint firstItem="WEg-OC-TKt" firstAttribute="centerX" secondItem="RtM-ez-Sf0" secondAttribute="centerX" id="Rxn-jZ-wmB"/>
                             <constraint firstItem="Lis-Ph-2dg" firstAttribute="trailing" secondItem="cfV-vN-KFV" secondAttribute="trailing" constant="20" id="Tan-3U-F3D"/>
+                            <constraint firstItem="RtM-ez-Sf0" firstAttribute="centerY" secondItem="3A0-rz-0ZG" secondAttribute="centerY" id="Unh-PB-UD5"/>
                             <constraint firstItem="yWx-zc-QIa" firstAttribute="top" secondItem="43H-DE-tdI" secondAttribute="top" id="WfI-IV-UZo"/>
                             <constraint firstItem="cfV-vN-KFV" firstAttribute="bottom" secondItem="AcR-6T-LEj" secondAttribute="bottom" id="Wh4-I4-2MR"/>
                             <constraint firstItem="0lE-WY-t7W" firstAttribute="bottom" secondItem="z0C-9R-fOW" secondAttribute="bottom" id="WoN-Vk-YFH"/>
                             <constraint firstItem="Lis-Ph-2dg" firstAttribute="bottom" secondItem="43H-DE-tdI" secondAttribute="bottom" id="YDu-f3-G4T"/>
+                            <constraint firstItem="1rB-Ed-WWq" firstAttribute="centerY" secondItem="Lis-Ph-2dg" secondAttribute="centerY" id="Zke-pp-nsp"/>
+                            <constraint firstItem="WEg-OC-TKt" firstAttribute="top" secondItem="RtM-ez-Sf0" secondAttribute="top" id="Zx8-oZ-g3u"/>
                             <constraint firstItem="WEg-OC-TKt" firstAttribute="leading" secondItem="Lis-Ph-2dg" secondAttribute="leading" constant="20" id="a0G-vn-czN"/>
-                            <constraint firstAttribute="bottom" secondItem="RtM-ez-Sf0" secondAttribute="bottom" id="and-Me-S1K"/>
+                            <constraint firstItem="Mo9-1X-Lpq" firstAttribute="bottom" secondItem="RtM-ez-Sf0" secondAttribute="bottom" id="and-Me-S1K"/>
                             <constraint firstItem="xsC-Oq-vPT" firstAttribute="top" secondItem="cfV-vN-KFV" secondAttribute="top" id="d2W-RN-PtI"/>
                             <constraint firstItem="0lE-WY-t7W" firstAttribute="top" secondItem="z0C-9R-fOW" secondAttribute="top" id="hFU-bl-Ljj"/>
                             <constraint firstItem="0lE-WY-t7W" firstAttribute="trailing" secondItem="cfV-vN-KFV" secondAttribute="trailing" id="hZ3-2c-MpP"/>
@@ -270,7 +279,6 @@
                             <constraint firstItem="yWx-zc-QIa" firstAttribute="bottom" secondItem="43H-DE-tdI" secondAttribute="bottom" id="ouw-F5-igQ"/>
                             <constraint firstItem="0lE-WY-t7W" firstAttribute="leading" secondItem="cfV-vN-KFV" secondAttribute="leading" id="ra9-in-ByF"/>
                             <constraint firstItem="yWx-zc-QIa" firstAttribute="leading" secondItem="43H-DE-tdI" secondAttribute="trailing" constant="8" id="xZc-nU-8ZN"/>
-                            <constraint firstItem="WEg-OC-TKt" firstAttribute="top" secondItem="AcR-6T-LEj" secondAttribute="bottom" constant="20" id="xx3-gs-3aN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Lis-Ph-2dg"/>
                     </view>
@@ -283,10 +291,13 @@
                         <outlet property="fontButton" destination="DUK-ke-P9o" id="CRf-cj-84v"/>
                         <outlet property="imageView" destination="RtM-ez-Sf0" id="umL-YF-aFP"/>
                         <outlet property="navBar" destination="Vpd-aj-rot" id="IJ4-Fq-tvq"/>
+                        <outlet property="noImageLabel" destination="1rB-Ed-WWq" id="ozj-1c-EM9"/>
                         <outlet property="photoLibraryButton" destination="z0C-9R-fOW" id="9B5-Vw-sAm"/>
                         <outlet property="saveButton" destination="43H-DE-tdI" id="59y-at-LLL"/>
                         <outlet property="shareButton" destination="yWx-zc-QIa" id="xUJ-i7-pm1"/>
                         <outlet property="textButton" destination="cfV-vN-KFV" id="s6V-dN-04E"/>
+                        <outlet property="textFieldBottomContraint" destination="and-Me-S1K" id="A5v-2e-Q9m"/>
+                        <outlet property="textFieldTopContraint" destination="Zx8-oZ-g3u" id="rjh-gK-g2A"/>
                         <outlet property="topTextField" destination="WEg-OC-TKt" id="TfZ-Lj-Mma"/>
                         <outletCollection property="allFontButtons" destination="mmQ-aI-bhm" collectionClass="NSMutableArray" id="3XR-zp-Poe"/>
                         <outletCollection property="allFontButtons" destination="Mdy-xr-FxV" collectionClass="NSMutableArray" id="fKK-rk-oU2"/>

@@ -22,6 +22,10 @@ class MemeEditViewController: UIViewController, UIDropInteractionDelegate, UINav
     @IBOutlet weak var bottomTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var navBar: UITabBarItem!
+    @IBOutlet weak var noImageLabel: UILabel!
+    @IBOutlet weak var textFieldTopContraint: NSLayoutConstraint!
+    @IBOutlet weak var textFieldBottomContraint: NSLayoutConstraint!
+    
     
     let memeTextAttributes: [NSAttributedString.Key : Any] = [
             .strokeColor : UIColor.black,
@@ -38,6 +42,7 @@ class MemeEditViewController: UIViewController, UIDropInteractionDelegate, UINav
         
         if let imageURL = StorageManager.shared.selectedTemplate {
             imageView.kf.setImage(with: imageURL)
+            fixImageView()
         }
         
         fontButton.isHidden = true
@@ -47,8 +52,8 @@ class MemeEditViewController: UIViewController, UIDropInteractionDelegate, UINav
         func stylizeTextField(textField: UITextField) {
             textField.defaultTextAttributes = memeTextAttributes
 
-            topTextField.text = "TOP"
-            bottomTextField.text = "BOTTOM"
+//            topTextField.text = "TOP"
+//            bottomTextField.text = "BOTTOM"
             textField.textAlignment = .center
             textField.delegate = self
         }
@@ -133,7 +138,7 @@ class MemeEditViewController: UIViewController, UIDropInteractionDelegate, UINav
         let memedImage = generateMemedImage()
         // save to Library and in Firebase
         saveMemeToLibrary(memedImage: memedImage)
-        saveMemeInFirebase(memedImage: memedImage)
+//        saveMemeInFirebase(memedImage: memedImage)
     }
     
     @IBAction func shareButtonAction(_ sender: Any) {
@@ -161,9 +166,7 @@ class MemeEditViewController: UIViewController, UIDropInteractionDelegate, UINav
     
     
     @IBAction func closeEditAction(_ sender: Any) {
-        let VC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabController") as! MainTabController
-        VC.modalPresentationStyle = .fullScreen
-        self.present(VC, animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

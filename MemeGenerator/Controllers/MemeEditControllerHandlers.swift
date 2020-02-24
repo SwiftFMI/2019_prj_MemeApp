@@ -83,26 +83,47 @@ extension MemeEditViewController {
     // show image on screen, when selected
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         imageView.image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage; dismiss(animated: true, completion: nil)
+        fixImageView()
     }
     
     func imagePickerControllerDidCancel(_: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
     
-    func generateMemedImage() -> UIImage {
-        // hide app icons
-        showHideAppIcons()
+    func fixImageView() {
+        noImageLabel.isHidden = true
+        imageView.backgroundColor = UIColor.systemBackground
         
+        let ratio = imageView.frame.width / imageView.image!.size.width
+        let newHeight = imageView.image!.size.height * ratio
+        
+        self.imageView.frame.size = CGSize(width: imageView.frame.size.width, height: newHeight)
+        textFieldTopContraint.constant = (self.view.frame.height - newHeight) / 2
+        textFieldBottomContraint.constant = -(self.view.frame.height - newHeight) / 2
+    }
+    
+    func generateMemedImage() -> UIImage {
         // Render View To An Image
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        let top = textFieldTopContraint.constant
+        let ratio = imageView.frame.width / imageView.image!.size.width
+        let newHeight = imageView.image!.size.height * ratio
+        
+        let rect = CGRect(x: 0, y: top, width: self.view.frame.width, height: newHeight)
+        
+        UIGraphicsBeginImageContext(self.view.bounds.size)
+        view.drawHierarchy(in: self.view.bounds, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
-        // show app icons again
-        showHideAppIcons()
+        let cgImage = memedImage.cgImage?.cropping(to: rect)
+        
+//        UIGraphicsBeginImageContext(self.view.frame.size)
+//        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+//        let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+//        UIGraphicsEndImageContext()
 
-        return memedImage
+//        return memedImage
+        return UIImage(cgImage: cgImage!, scale: imageView.image!.scale, orientation: .up)
     }
     
     func saveMemeToLibrary(memedImage: UIImage) {
