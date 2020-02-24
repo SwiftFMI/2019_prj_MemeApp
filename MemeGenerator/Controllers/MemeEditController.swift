@@ -128,30 +128,32 @@ class MemeEditViewController: UIViewController, UIDropInteractionDelegate, UINav
     }
     
     @IBAction func saveButtonAction(_ sender: Any) {
-        if topTextField.text == "TOP" || topTextField.text == ""{
+        if topTextField.text == ""{
             topTextField.isHidden = true
         }
-        if bottomTextField.text == "BOTTOM" || bottomTextField.text == "" {
+        if bottomTextField.text == "" {
             bottomTextField.isHidden = true
         }
         
         let memedImage = generateMemedImage()
         // save to Library and in Firebase
         saveMemeToLibrary(memedImage: memedImage)
-//        saveMemeInFirebase(memedImage: memedImage)
+        saveMemeInFirebase(memedImage: memedImage)
     }
     
     @IBAction func shareButtonAction(_ sender: Any) {
-        if topTextField.text == "TOP" {
+        if topTextField.text == ""{
             topTextField.isHidden = true
         }
-        if bottomTextField.text == "BOTTOM" {
+        if bottomTextField.text == "" {
             bottomTextField.isHidden = true
         }
         
         let memedImage = generateMemedImage()
         
-        shareInFacebook(memedImage: memedImage)
+        let activityVC = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = self.view
+        self.present(activityVC, animated: true, completion: nil)
     }
     
     // *** get photo from album/camera to meme *** //

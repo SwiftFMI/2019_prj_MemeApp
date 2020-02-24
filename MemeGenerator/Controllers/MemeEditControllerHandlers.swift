@@ -96,20 +96,30 @@ extension MemeEditViewController {
         
         let ratio = imageView.frame.width / imageView.image!.size.width
         let newHeight = imageView.image!.size.height * ratio
-        
+
         self.imageView.frame.size = CGSize(width: imageView.frame.size.width, height: newHeight)
         textFieldTopContraint.constant = (self.view.frame.height - newHeight) / 2
         textFieldBottomContraint.constant = -(self.view.frame.height - newHeight) / 2
     }
     
     func generateMemedImage() -> UIImage {
+        let imgRatio = imageView.image!.size.width / imageView.image!.size.height
+        let viewRatio = imageView.frame.width / imageView.frame.height
+        let rect: CGRect
+        
+        if imgRatio < viewRatio {
+            let scale = imageView.frame.height / (imageView.image?.size.height)!
+            let width = scale * (imageView.image?.size.width)!
+            let topLeftX = ( imageView.frame.size.width - width ) * 0.5
+            rect = CGRect(x: topLeftX, y: 0, width: width, height: imageView.frame.height)
+        } else {
+            let scale = imageView.frame.width / (imageView.image?.size.width)!
+            let height = scale * (imageView.image?.size.height)!
+            let topLeftY = ( imageView.frame.size.height - height ) * 0.5
+            rect = CGRect(x: 0, y: topLeftY, width: imageView.frame.height, height: height)
+        }
+        
         // Render View To An Image
-        let top = textFieldTopContraint.constant
-        let ratio = imageView.frame.width / imageView.image!.size.width
-        let newHeight = imageView.image!.size.height * ratio
-        
-        let rect = CGRect(x: 0, y: top, width: self.view.frame.width, height: newHeight)
-        
         UIGraphicsBeginImageContext(self.view.bounds.size)
         view.drawHierarchy(in: self.view.bounds, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
@@ -117,12 +127,6 @@ extension MemeEditViewController {
         
         let cgImage = memedImage.cgImage?.cropping(to: rect)
         
-//        UIGraphicsBeginImageContext(self.view.frame.size)
-//        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
-//        let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-//        UIGraphicsEndImageContext()
-
-//        return memedImage
         return UIImage(cgImage: cgImage!, scale: imageView.image!.scale, orientation: .up)
     }
     
@@ -149,28 +153,5 @@ extension MemeEditViewController {
             print(error as Any)
                 return
             }}
-    }
-    
-    func shareInFacebook(memedImage: UIImage) {
-        let alert = UIAlertController(title: "Share", message: "Share your meme!", preferredStyle: .actionSheet)
-        
-        let fbAction = UIAlertAction(title: "Share on Facebook", style: .default) { (action) in
-            let photo: SharePhoto = SharePhoto()
-            photo.image = memedImage
-            photo.isUserGenerated = true
-            
-            let content: SharePhotoContent = SharePhotoContent()
-            content.photos = [photo]
-            
-            let shareDialog = ShareDialog(fromViewController: self, content: content, delegate: nil)
-            shareDialog.mode = .native
-            shareDialog.shouldFailOnDataError = true
-            
-            shareDialog.show()
-        }
-        
-        
-        alert.addAction(fbAction)
-        self.present(alert, animated: true, completion: nil)
     }
 }
